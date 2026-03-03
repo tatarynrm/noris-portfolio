@@ -1,0 +1,59 @@
+===============================================================
+  ROMAN NORIS — FULLSTACK DEVELOPER
+  Portfolio: https://noris.dev
+  Contact:   roman@noris.dev
+===============================================================
+
+SUMMARY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Visionary Fullstack Developer with 4+ years of experience
+engineering production-ready systems at scale. Specialist in
+Next.js, NestJS, PostgreSQL, GSAP, and cinematic UI design.
+
+I build systems that are fast, beautiful, and cost-effective.
+
+EXPERIENCE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2024 – Present | Senior Fullstack Developer
+  Antigravity Engineering
+  Architected microservice backends and WebGL interfaces
+  scaling to 100,000+ active users.
+
+2022 – 2024 | Frontend Architect
+  NextGen Solutions
+  Migrated legacy SPAs to Next.js SSR. Improved SEO & TTI 60%.
+
+2020 – 2022 | Software Engineer
+  Creative Labs
+  Pixel-perfect React integrations with complex state management
+  and custom GSAP animation systems.
+
+SELECTED PROJECTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+▸ IoT Water Dispenser Infrastructure
+  Remote admin ecosystem for 48,000+ distributed hardware nodes.
+  Sub-20ms latency via custom WebSocket telemetry layer.
+
+▸ Global Logistics CRM
+  PostgreSQL cluster handling 85,000 DB ops/sec.
+  Predictive routing for 12,400+ daily logistics routes.
+
+▸ Carrier Fleet Operations Portal
+  Edge-authenticated dashboard for 5,000+ trucks.
+  GPS tracking + Dijkstra A* pathfinding in browser.
+
+TECHNICAL ARSENAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Frontend:   Next.js · React · TypeScript · Tailwind CSS · GSAP
+Backend:    NestJS · Node.js · REST · WebSockets · GraphQL
+Database:   PostgreSQL · Redis · Prisma · TypeORM
+DevOps:     Docker · CI/CD · Nginx · AWS · Vercel
+Other:      Three.js · Framer Motion · Canvas API · Web Audio API
+
+VALUES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚡ SPEED     — Production-ready in record time.
+💎 EFFICIENCY — No waste. Pure results.
+💸 VALUE     — Premium quality at optimal cost.
+
+===============================================================
