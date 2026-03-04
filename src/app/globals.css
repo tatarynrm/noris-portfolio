@@ -6,28 +6,33 @@
  *  Design Tokens — Light & Dark                              *
  * ═══════════════════════════════════════════════════════════ */
 :root {
-  /* Backgrounds */
+  /* Backgrounds — Soft Mesh Gradient Base */
   --bg-base: #ffffff;
-  --bg-surface: #f8f9fb;
-  --bg-card: rgba(255, 255, 255, 0.85);
-  --bg-card-hover: rgba(255, 255, 255, 0.97);
+  --bg-surface: #f9fafb;
+  --bg-card: rgba(255, 255, 255, 0.7);
+  --bg-card-hover: rgba(255, 255, 255, 0.95);
 
-  /* Text */
-  --text-primary: #0a0a12;
-  --text-secondary: #4b5563;
-  --text-muted: #9ca3af;
+  /* Text — Deep Charcoal & Slate */
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
 
-  /* Borders */
-  --border-base: rgba(0, 0, 0, 0.08);
-  --border-strong: rgba(0, 0, 0, 0.14);
+  /* Borders — Ultra Subtle */
+  --border-base: rgba(0, 0, 0, 0.04);
+  --border-strong: rgba(0, 0, 0, 0.08);
 
-  /* Accents (shared) */
-  --accent-blue: #2563eb;
+  /* Accents — Vibrant but balanced */
+  --accent-blue: #3b82f6;
   --accent-cyan: #06b6d4;
+  --accent-purple: #8b5cf6;
 
-  /* Shadows */
-  --shadow-card: 0 4px 24px rgba(0, 0, 20, 0.07), 0 1px 4px rgba(0, 0, 20, 0.04);
-  --shadow-hover: 0 8px 40px rgba(37, 99, 235, 0.12), 0 2px 8px rgba(0, 0, 20, 0.06);
+  /* Shadows — Multi-layered for depth */
+  --shadow-card:
+    0 2px 4px rgba(0, 0, 0, 0.02),
+    0 10px 20px rgba(0, 0, 0, 0.04);
+  --shadow-hover:
+    0 4px 6px rgba(59, 130, 246, 0.05),
+    0 20px 40px rgba(59, 130, 246, 0.12);
 
   --background: var(--bg-base);
   --foreground: var(--text-primary);
@@ -39,7 +44,7 @@
   --bg-card: rgba(255, 255, 255, 0.04);
   --bg-card-hover: rgba(255, 255, 255, 0.07);
 
-  --text-primary: #f0f0f8;
+  --text-primary: #f8fafc;
   --text-secondary: #94a3b8;
   --text-muted: #64748b;
 
@@ -77,8 +82,26 @@ body {
 }
 
 /* ═════════════════════════════════════════════════════════ *
- *  Light-mode section backgrounds                           *
+ *  Light-mode Background Ornaments                         *
  * ═════════════════════════════════════════════════════════ */
+:root body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(59, 130, 246, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 100% 100%, rgba(139, 92, 246, 0.03) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.dark body::before {
+  display: none;
+}
+
 /* Odd sections get a very subtle off-white to create rhythm */
 section:nth-child(even):not(.no-alt-bg) {
   background-color: var(--bg-surface);
@@ -166,5 +189,9 @@ span {
  *  Light mode — kill dark-only glass opacity patterns       *
  * ═════════════════════════════════════════════════════════ */
 :root .skills-card-bg {
-  background: rgba(255, 255, 255, 0.72) !important;
+  background: rgba(255, 255, 255, 0.6) !important;
+}
+
+.dark .skills-card-bg {
+  background: rgba(255, 255, 255, 0.03) !important;
 }

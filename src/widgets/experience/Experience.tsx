@@ -12,6 +12,21 @@ export function Experience() {
     const timelineRef = useRef<HTMLDivElement>(null);
     const t = useTranslations("Experience");
 
+    // Utility for masked word animations
+    const splitWordsMasked = (text: string) => {
+        return text.split(' ').map((word, i) => (
+            <span key={i} className="inline-block overflow-hidden relative leading-tight align-bottom pb-1 mr-2 md:mr-4 last:mr-0">
+                <span className="inline-block exp-title-word transform translate-y-[110%] will-change-transform">
+                    {word}
+                </span>
+            </span>
+        ));
+    };
+
+    const title1 = t("title_1");
+    const title2 = t("title_2");
+    const subtitle = t("subtitle");
+
     const experiences = [
         {
             year: t("0_year"),
@@ -67,15 +82,31 @@ export function Experience() {
                 0
             );
 
-            // Fade in the title
-            gsap.from(".exp-title", {
+            // Fade in the title with masked words
+            gsap.to(".exp-title-word", {
+                scrollTrigger: {
+                    trigger: containerRef.current,
+                    start: "top 85%",
+                    once: true,
+                },
+                y: "0%",
+                opacity: 1,
+                rotateZ: 0,
+                duration: 1.2,
+                stagger: 0.05,
+                ease: "power4.out"
+            });
+
+            gsap.from(".exp-subtitle", {
                 scrollTrigger: {
                     trigger: containerRef.current,
                     start: "top 80%",
+                    once: true,
                 },
-                y: 50,
+                y: 20,
                 opacity: 0,
-                duration: 1,
+                duration: 1.2,
+                delay: 0.4,
                 ease: "power3.out"
             });
 
@@ -118,11 +149,11 @@ export function Experience() {
     return (
         <section id="experience" ref={containerRef} className="h-screen relative z-10 flex flex-col justify-center overflow-hidden bg-black/5 dark:bg-white/5 backdrop-blur-sm border-y border-white/10 mt-32">
             <div className="container mx-auto px-6 mb-12 flex-shrink-0">
-                <h2 className="exp-title text-5xl md:text-6xl font-extrabold tracking-tighter text-gray-900 dark:text-white">
-                    {t("title_1")} <span className="text-blue-500">{t("title_2")}</span>
+                <h2 className="text-5xl md:text-6xl font-extrabold tracking-tighter text-gray-900 dark:text-white">
+                    {splitWordsMasked(title1)} <span className="text-blue-500">{splitWordsMasked(title2)}</span>
                 </h2>
-                <p className="exp-title mt-4 text-xl text-gray-500 max-w-2xl font-light">
-                    {t("subtitle")}
+                <p className="exp-subtitle mt-6 text-xl text-gray-500 max-w-2xl font-light">
+                    {subtitle}
                 </p>
             </div>
 
@@ -132,7 +163,7 @@ export function Experience() {
                         <div
                             onMouseMove={handleMouseMove}
                             onMouseLeave={handleMouseLeave}
-                            className="relative transform-gpu will-change-transform p-10 md:p-16 rounded-3xl backdrop-blur-2xl bg-white/40 dark:bg-black/40 border border-white/30 dark:border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.3)] hover:shadow-[0_30px_60px_rgba(59,130,246,0.15)] hover:border-blue-500/50 transition-colors duration-500 group"
+                            className="relative transform-gpu will-change-transform p-10 md:p-16 rounded-3xl backdrop-blur-2xl bg-white/60 dark:bg-black/40 border border-gray-200/50 dark:border-white/10 shadow-card dark:shadow-[0_20px_50px_rgba(0,0,0,0.3)] hover:shadow-hover hover:border-blue-500/50 transition-colors duration-500 group"
                         >
 
                             <div className="absolute -top-10 -right-10 text-[8rem] font-bold text-gray-900/5 dark:text-white/5 group-hover:text-blue-500/10 transition-colors duration-500 pointer-events-none select-none">

@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useTranslations } from "next-intl";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -75,6 +76,7 @@ const EYES: EyePairProps[] = [
 /*  Star Wars Crawl                                            */
 /* ─────────────────────────────────────────────────────────── */
 export function StarWarsCrawl() {
+    const t = useTranslations("StarWars");
     const wrapRef = useRef<HTMLDivElement>(null);
     const stageRef = useRef<HTMLDivElement>(null);
     const crawlRef = useRef<HTMLDivElement>(null);
@@ -182,10 +184,10 @@ export function StarWarsCrawl() {
     }, []);
 
     const paragraphs = [
-        "It is a period of immense digital noise. In a galaxy saturated with generic templates and blocky interfaces, a single developer strikes out to restore balance to the visual force.",
-        "Armed with Next.js, PostgreSQL, and the unyielding mathematics of GSAP, Roman Noris seeks the ultimate objective — crafting hyper-performant, cinematic web experiences that defy the constraints of the modern browser.",
-        "The mission is clear. Build systems of radical performance. Design interfaces of radical beauty. Ship products of radical value. The code must compile. The UI must be flawless.",
-        "ANTIGRAVITY MUST BE ENGINEERED.",
+        t("p1"),
+        t("p2"),
+        t("p3"),
+        t("p4"),
     ];
 
     return (
@@ -238,15 +240,15 @@ export function StarWarsCrawl() {
                 {/* ── Episode title ── */}
                 <div className="relative z-20 flex flex-col items-center pt-16 pb-6 shrink-0">
                     <p className="text-[10px] font-mono tracking-[0.5em] text-blue-400/60 uppercase mb-4">
-                        / episode {new Date().getFullYear()} /
+                        / {t("episode")} {new Date().getFullYear()} /
                     </p>
                     <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-[-0.02em] uppercase text-center leading-tight">
-                        <span className="text-white">The Rise of&nbsp;</span>
+                        <span className="text-white">{t("title_logic_part_1")}&nbsp;</span>
                         <span className="text-transparent bg-clip-text" style={{
                             backgroundImage: "linear-gradient(to right, #60a5fa, #67e8f9, #3b82f6)",
                             WebkitBackgroundClip: "text",
                             filter: "drop-shadow(0 0 18px rgba(96,165,250,0.5))",
-                        }}>Logic</span>
+                        }}>{t("title_logic_part_2")}</span>
                     </h2>
                 </div>
 

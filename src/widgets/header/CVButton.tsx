@@ -41,21 +41,21 @@ export function CVButton({ variant = "compact", onPick }: CVButtonProps) {
     const options = [
         {
             icon: Eye,
-            label: "Preview CV",
+            label: tNav("preview_cv"),
             href: CV_PATH,
             target: "_blank",
             download: false,
         },
         {
             icon: Download,
-            label: "Download CV",
+            label: tNav("download_cv"),
             href: CV_PATH,
             target: "_self",
             download: true,
         },
         {
             icon: Mail,
-            label: "Contact me",
+            label: tNav("contact_me"),
             href: "/#contact",
             target: "_self",
             download: false,
@@ -112,7 +112,7 @@ export function CVButton({ variant = "compact", onPick }: CVButtonProps) {
                             transition={{ duration: 0.18, ease: "easeOut" }}
                             className={[
                                 "absolute z-50 flex flex-col gap-1 p-2 rounded-2xl",
-                                "bg-white/[0.06] dark:bg-black/80 backdrop-blur-2xl",
+                                "bg-white/[0.95] dark:bg-black/80 backdrop-blur-2xl",
                                 "border border-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.4)]",
                                 variant === "compact"
                                     ? "top-full mt-2 right-0 min-w-[180px]"

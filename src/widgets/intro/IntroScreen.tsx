@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import { useTranslations } from "next-intl";
 
 /* ─────────────────────────────────────────────────────────── *
  *  LoadingScreen                                              *
@@ -11,6 +12,7 @@ import gsap from "gsap";
  *  When full → section reveals with a cinematic wipe-out.    *
  * ─────────────────────────────────────────────────────────── */
 export function IntroScreen() {
+    const t = useTranslations("Intro");
     const [visible, setVisible] = useState(false);
 
     const overlayRef = useRef<HTMLDivElement>(null);
@@ -92,15 +94,15 @@ export function IntroScreen() {
     return (
         <div
             ref={overlayRef}
-            className="fixed inset-0 z-[9999] bg-[#020208] flex flex-col items-center justify-between py-16 overflow-hidden"
+            className="fixed inset-0 z-[9999] bg-background dark:bg-[#020208] flex flex-col items-center justify-between py-16 overflow-hidden transition-colors duration-700"
         >
             {/*── Subtle dot-grid texture ─────────────────────*/}
             <div
                 aria-hidden
-                className="pointer-events-none absolute inset-0 opacity-[0.03]"
+                className="pointer-events-none absolute inset-0 opacity-[0.03] dark:opacity-[0.03] light:opacity-[0.05]"
                 style={{
                     backgroundImage:
-                        "linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px)",
+                        "linear-gradient(currentColor 1px,transparent 1px),linear-gradient(90deg,currentColor 1px,transparent 1px)",
                     backgroundSize: "48px 48px",
                 }}
             />
@@ -121,8 +123,8 @@ export function IntroScreen() {
                         roman.noris / portfolio
                     </span>
                 </div>
-                <p className="text-white/10 text-[10px] font-mono tracking-widest uppercase">
-                    initializing system…
+                <p className="text-gray-400 dark:text-white/10 text-[10px] font-mono tracking-widest uppercase">
+                    {t("initializing")}
                 </p>
             </div>
 
@@ -133,8 +135,8 @@ export function IntroScreen() {
                 <div className="flex items-baseline gap-1">
                     <span
                         ref={percentRef}
-                        className="text-5xl font-black tabular-nums text-white leading-none"
-                        style={{ textShadow: "0 0 30px rgba(59,130,246,0.5)" }}
+                        className="text-5xl font-black tabular-nums text-gray-900 dark:text-white leading-none"
+                        style={{ textShadow: "0 0 30px rgba(59,130,246,0.3)" }}
                     >
                         0%
                     </span>
@@ -143,7 +145,7 @@ export function IntroScreen() {
                 {/* Track */}
                 <div
                     ref={trackRef}
-                    className="relative w-12 sm:w-16 rounded-full bg-white/[0.04] border border-white/[0.06] overflow-hidden"
+                    className="relative w-12 sm:w-16 rounded-full bg-black/[0.03] dark:bg-white/[0.04] border border-black/[0.05] dark:border-white/[0.06] overflow-hidden"
                     style={{ height: "44vh" }}
                 >
                     {/* Fill — grows from bottom upward */}
@@ -184,7 +186,7 @@ export function IntroScreen() {
             {/*── BOTTOM: Tagline ──────────────────────────────*/}
             <div className="relative z-10 flex flex-col items-center gap-1">
                 <p className="text-xs font-mono text-gray-600 tracking-[0.3em] uppercase">
-                    Engineering Antigravity
+                    {t("tagline")}
                 </p>
             </div>
         </div>

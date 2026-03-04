@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import { ThemeProvider } from "@/features/theme-toggler/ThemeProvider";
 import { Header } from "@/widgets/header/Header";
-import { SmoothScrollProvider } from "@/shared/providers/SmoothScrollProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -101,7 +100,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { notFound } from "next/navigation";
-import { ScrollProgress } from "@/shared/ui/ScrollProgress";
+import { QueryProvider } from "@/shared/providers/QueryProvider";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -128,19 +127,18 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <NextIntlClientProvider messages={messages}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            disableTransitionOnChange
-          >
-            <SmoothScrollProvider>
-              <ScrollProgress />
+          <QueryProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="dark"
+              disableTransitionOnChange
+            >
               <Header />
               <div className="relative z-10">
                 {children}
               </div>
-            </SmoothScrollProvider>
-          </ThemeProvider>
+            </ThemeProvider>
+          </QueryProvider>
         </NextIntlClientProvider>
       </body>
     </html>

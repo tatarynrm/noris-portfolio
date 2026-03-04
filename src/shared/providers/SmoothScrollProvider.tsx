@@ -12,7 +12,7 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
     const lenisRef = useRef<any>(null);
     const pathname = usePathname();
 
-    const isProjectsRoute = pathname.includes('/projects');
+    const isExcludedRoute = pathname.includes('/projects') || pathname.includes('/profile');
 
     useEffect(() => {
         function update(time: number) {
@@ -47,7 +47,7 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
 
     }, [pathname]);
 
-    if (isProjectsRoute) {
+    if (isExcludedRoute) {
         return <>{children}</>;
     }
 

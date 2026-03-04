@@ -1,20 +1,21 @@
-"use client";
-
-import { useState } from "react";
+'use client'
+import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Send, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
+import { Send, Loader2, CheckCircle2, AlertCircle, Phone } from "lucide-react";
 import confetti from "canvas-confetti";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useTranslations } from "next-intl";
-import { useMemo } from "react";
 import { MagneticButton } from "@/shared/ui/MagneticButton";
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
 
 // Base schema just for TypeScript casting, the actual validation is inside the component scope
 const baseSchema = z.object({
     name: z.string(),
     email: z.string(),
+    phone: z.string(),
     interest: z.string(),
     dynamicField: z.string().optional(),
     projectDetails: z.string()
@@ -31,6 +32,7 @@ export function ContactForm() {
         return z.object({
             name: z.string().min(2, t("name_error")),
             email: z.string().email(t("email_error")),
+            phone: z.string().min(8, t("phone_error")),
             interest: z.string().min(1, t("objective_error")),
             dynamicField: z.string().optional(),
             projectDetails: z.string().min(10, t("payload_error"))
@@ -50,12 +52,14 @@ export function ContactForm() {
         handleSubmit,
         watch,
         reset,
+        control,
         formState: { errors }
     } = useForm<FormValues>({
         resolver: zodResolver(formSchema),
         defaultValues: {
             name: "",
             email: "",
+            phone: "",
             interest: "",
             dynamicField: "",
             projectDetails: ""
@@ -91,16 +95,35 @@ export function ContactForm() {
         frame();
     };
 
-    const onSubmit = (data: FormValues) => {
+    const onSubmit = async (data: FormValues) => {
         setIsSubmittingForm(true);
 
-        // Fake submission delay simulating a network request
-        setTimeout(() => {
-            setIsSubmittingForm(false);
+        try {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001'}/contact`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: data.name,
+                    email: data.email,
+                    phone: data.phone,
+                    interest: data.interest,
+                    dynamicField: data.dynamicField,
+                    projectDetails: data.projectDetails,
+                }),
+            });
+
+            if (!response.ok) throw new Error('Failed to send message');
+
             setIsSuccess(true);
             triggerConfetti();
             reset();
-        }, 2000);
+        } catch (error) {
+            console.error('Submission error:', error);
+        } finally {
+            setIsSubmittingForm(false);
+        }
     };
 
     const handleReset = () => {
@@ -132,6 +155,64 @@ export function ContactForm() {
     return (
         <>
             <section id="contact" className="py-32 relative z-10 perspective-[2000px] overflow-hidden">
+                <style jsx global>{`
+                    .react-tel-input .form-control {
+                        width: 100% !important;
+                        height: 64px !important;
+                        padding-left: 64px !important;
+                        border-radius: 1rem !important;
+                        background: rgba(255, 255, 255, 0.4) !important;
+                        border: 1px solid rgba(229, 231, 235, 0.6) !important;
+                        color: #111827 !important;
+                        font-family: inherit !important;
+                        font-weight: 700 !important;
+                        transition: all 0.3s ease !important;
+                    }
+                    .dark .react-tel-input .form-control {
+                        background: rgba(0, 0, 0, 0.5) !important;
+                        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+                        color: white !important;
+                    }
+                    .react-tel-input .form-control:focus {
+                        border-color: #3b82f6 !important;
+                        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5) !important;
+                    }
+                    .react-tel-input .flag-dropdown {
+                        background: transparent !important;
+                        border: none !important;
+                        border-radius: 1rem 0 0 1rem !important;
+                        padding-left: 12px !important;
+                    }
+                    .react-tel-input .selected-flag {
+                        background: transparent !important;
+                        width: 52px !important;
+                        padding: 0 0 0 12px !important;
+                    }
+                    .react-tel-input .selected-flag:hover, 
+                    .react-tel-input .selected-flag:focus {
+                        background: transparent !important;
+                    }
+                    .react-tel-input .country-list {
+                        background: rgba(255, 255, 255, 0.9) !important;
+                        backdrop-filter: blur(10px) !important;
+                        border-radius: 1rem !important;
+                        border: 1px solid rgba(229, 231, 235, 0.6) !important;
+                        color: #111827 !important;
+                        margin-top: 8px !important;
+                        box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
+                    }
+                    .dark .react-tel-input .country-list {
+                        background: rgba(10, 10, 10, 0.9) !important;
+                        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+                        color: white !important;
+                    }
+                    .react-tel-input .country-list .country:hover {
+                        background: rgba(59, 130, 246, 0.1) !important;
+                    }
+                    .react-tel-input .country-list .country.highlight {
+                        background: rgba(59, 130, 246, 0.2) !important;
+                    }
+                `}</style>
                 <div className="container mx-auto px-6 max-w-3xl">
                     <div className="text-center mb-16">
                         <h2 className="text-5xl md:text-6xl font-extrabold tracking-tighter text-gray-900 dark:text-white mb-6">
@@ -147,7 +228,7 @@ export function ContactForm() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, ease: "easeOut" }}
-                        className="p-10 rounded-[3rem] backdrop-blur-2xl bg-white/40 dark:bg-black/40 border border-white/20 dark:border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.4)] relative overflow-hidden"
+                        className="p-10 rounded-[3rem] backdrop-blur-2xl bg-white/60 dark:bg-black/40 border border-gray-200/50 dark:border-white/10 shadow-card dark:shadow-[0_20px_50px_rgba(0,0,0,0.4)] relative overflow-hidden"
                     >
                         {/* Inner ambient glow */}
                         <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 pointer-events-none -z-10" />
@@ -159,10 +240,10 @@ export function ContactForm() {
                                     <motion.div animate={errors.name ? "error" : "initial"} variants={errorShake}>
                                         <input
                                             {...register("name")}
-                                            className={`w-full px-6 py-4 bg-white/50 dark:bg-black/50 border rounded-2xl focus:outline-none focus:ring-2 transition-all text-gray-900 dark:text-white placeholder-gray-400
+                                            className={`w-full px-6 py-4 bg-white/40 dark:bg-black/50 border rounded-2xl focus:outline-none focus:ring-2 transition-all text-gray-900 dark:text-white placeholder-gray-400 font-bold
                                                 ${errors.name
                                                     ? 'border-red-500 focus:ring-red-500/50 focus:border-red-500 shadow-[0_0_15px_rgba(239,68,68,0.2)]'
-                                                    : 'border-gray-200 dark:border-white/10 focus:ring-blue-500/50 focus:border-blue-500'
+                                                    : 'border-gray-200/60 dark:border-white/10 focus:ring-blue-500/50 focus:border-blue-500'
                                                 }`}
                                             placeholder={t("name_placeholder")}
                                         />
@@ -182,10 +263,10 @@ export function ContactForm() {
                                     <motion.div animate={errors.email ? "error" : "initial"} variants={errorShake}>
                                         <input
                                             {...register("email")}
-                                            className={`w-full px-6 py-4 bg-white/50 dark:bg-black/50 border rounded-2xl focus:outline-none focus:ring-2 transition-all text-gray-900 dark:text-white placeholder-gray-400
+                                            className={`w-full px-6 py-4 bg-white/40 dark:bg-black/50 border rounded-2xl focus:outline-none focus:ring-2 transition-all text-gray-900 dark:text-white placeholder-gray-400 font-bold
                                                 ${errors.email
                                                     ? 'border-red-500 focus:ring-red-500/50 focus:border-red-500 shadow-[0_0_15px_rgba(239,68,68,0.2)]'
-                                                    : 'border-gray-200 dark:border-white/10 focus:ring-blue-500/50 focus:border-blue-500'
+                                                    : 'border-gray-200/60 dark:border-white/10 focus:ring-blue-500/50 focus:border-blue-500'
                                                 }`}
                                             placeholder={t("email_placeholder")}
                                         />
@@ -202,22 +283,53 @@ export function ContactForm() {
                             </div>
 
                             <div className="space-y-2">
+                                <label className="text-sm font-bold tracking-widest uppercase text-gray-500 dark:text-gray-400 ml-2">{t("phone_label")}</label>
+                                <motion.div animate={errors.phone ? "error" : "initial"} variants={errorShake}>
+                                    <Controller
+                                        name="phone"
+                                        control={control}
+                                        render={({ field: { onChange, value } }) => (
+                                            <PhoneInput
+                                                country={'ua'}
+                                                value={value}
+                                                onChange={onChange}
+                                                placeholder={t("phone_placeholder")}
+                                                containerClass="react-tel-input"
+                                                inputProps={{
+                                                    required: true,
+                                                    name: 'phone'
+                                                }}
+                                            />
+                                        )}
+                                    />
+                                </motion.div>
+                                <AnimatePresence>
+                                    {errors.phone && (
+                                        <motion.div variants={errorMessageAnim} initial="initial" animate="animate" exit="exit" className="flex items-center gap-2 text-red-500 text-xs font-bold uppercase tracking-wider ml-2 mt-1">
+                                            <AlertCircle className="w-4 h-4" />
+                                            <span>{errors.phone.message}</span>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </div>
+
+                            <div className="space-y-2">
                                 <label className="text-sm font-bold tracking-widest uppercase text-gray-500 dark:text-gray-400 ml-2">{t("objective_label")}</label>
                                 <motion.div animate={errors.interest ? "error" : "initial"} variants={errorShake}>
                                     <select
                                         {...register("interest")}
-                                        className={`w-full px-6 py-4 bg-white/50 dark:bg-black/50 border rounded-2xl focus:outline-none focus:ring-2 transition-all text-gray-900 dark:text-white appearance-none cursor-pointer
+                                        className={`w-full px-6 py-4 bg-white/40 dark:bg-black/50 border rounded-2xl focus:outline-none focus:ring-2 transition-all text-gray-900 dark:text-white appearance-none cursor-pointer font-bold
                                             ${errors.interest
                                                 ? 'border-red-500 focus:ring-red-500/50 focus:border-red-500 shadow-[0_0_15px_rgba(239,68,68,0.2)]'
-                                                : 'border-gray-200 dark:border-white/10 focus:ring-blue-500/50 focus:border-blue-500'
+                                                : 'border-gray-200/60 dark:border-white/10 focus:ring-blue-500/50 focus:border-blue-500'
                                             }`}
                                     >
-                                        <option value="" disabled className="dark:bg-[#111]">{t("objective_placeholder")}</option>
-                                        <option value="Web Application" className="dark:bg-[#111]">{t("obj_web")}</option>
-                                        <option value="Mobile App" className="dark:bg-[#111]">{t("obj_mobile")}</option>
-                                        <option value="Desktop App" className="dark:bg-[#111]">{t("obj_desktop")}</option>
-                                        <option value="Automation Bot" className="dark:bg-[#111]">{t("obj_bot")}</option>
-                                        <option value="Other" className="dark:bg-[#111]">{t("obj_other")}</option>
+                                        <option value="" disabled className="bg-white dark:bg-[#111]">{t("objective_placeholder")}</option>
+                                        <option value="Web Application" className="bg-white dark:bg-[#111]">{t("obj_web")}</option>
+                                        <option value="Mobile App" className="bg-white dark:bg-[#111]">{t("obj_mobile")}</option>
+                                        <option value="Desktop App" className="bg-white dark:bg-[#111]">{t("obj_desktop")}</option>
+                                        <option value="Automation Bot" className="bg-white dark:bg-[#111]">{t("obj_bot")}</option>
+                                        <option value="Other" className="bg-white dark:bg-[#111]">{t("obj_other")}</option>
                                     </select>
                                 </motion.div>
                                 <AnimatePresence>
@@ -246,7 +358,7 @@ export function ContactForm() {
                                         <motion.div animate={errors.dynamicField ? "error" : "initial"} variants={errorShake}>
                                             <input
                                                 {...register("dynamicField")}
-                                                className={`w-full px-6 py-4 bg-blue-500/5 dark:bg-blue-500/10 border rounded-2xl focus:outline-none focus:ring-2 transition-all text-gray-900 dark:text-white placeholder-blue-300 dark:placeholder-blue-800
+                                                className={`w-full px-6 py-4 bg-blue-500/5 dark:bg-blue-500/10 border rounded-2xl focus:outline-none focus:ring-2 transition-all text-gray-900 dark:text-white placeholder-blue-300 dark:placeholder-blue-800 font-bold
                                                     ${errors.dynamicField
                                                         ? 'border-red-500 focus:ring-red-500/50 focus:border-red-500 shadow-[0_0_15px_rgba(239,68,68,0.2)] text-red-500'
                                                         : 'border-blue-200 dark:border-blue-500/20 focus:ring-blue-500/50 focus:border-blue-500'
@@ -272,10 +384,10 @@ export function ContactForm() {
                                     <textarea
                                         {...register("projectDetails")}
                                         rows={5}
-                                        className={`w-full px-6 py-4 bg-white/50 dark:bg-black/50 border rounded-2xl focus:outline-none focus:ring-2 transition-all text-gray-900 dark:text-white placeholder-gray-400 resize-none
+                                        className={`w-full px-6 py-4 bg-white/40 dark:bg-black/50 border rounded-2xl focus:outline-none focus:ring-2 transition-all text-gray-900 dark:text-white placeholder-gray-400 font-bold resize-none
                                             ${errors.projectDetails
                                                 ? 'border-red-500 focus:ring-red-500/50 focus:border-red-500 shadow-[0_0_15px_rgba(239,68,68,0.2)]'
-                                                : 'border-gray-200 dark:border-white/10 focus:ring-blue-500/50 focus:border-blue-500'
+                                                : 'border-gray-200/60 dark:border-white/10 focus:ring-blue-500/50 focus:border-blue-500'
                                             }`}
                                         placeholder={t("payload_placeholder")}
                                     ></textarea>
@@ -297,7 +409,6 @@ export function ContactForm() {
                                         type="submit"
                                         className="w-full group relative flex items-center justify-center gap-3 px-8 py-5 rounded-2xl bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-bold tracking-widest uppercase overflow-hidden transition-transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-70 disabled:hover:scale-100"
                                     >
-                                        {/* Button Hover Glow */}
                                         <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                                         <span className="relative z-10 flex items-center gap-3 group-hover:text-white transition-colors">
@@ -329,7 +440,7 @@ export function ContactForm() {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.8, ease: "easeInOut" }}
-                        className="fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center p-6"
+                        className="fixed inset-0 z-[100] bg-slate-50 dark:bg-black flex flex-col items-center justify-center p-6"
                     >
                         <motion.div
                             initial={{ scale: 0.5, opacity: 0 }}
@@ -344,7 +455,7 @@ export function ContactForm() {
                             initial={{ y: 50, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
                             transition={{ delay: 0.8, duration: 1, ease: "backOut" }}
-                            className="text-4xl md:text-6xl lg:text-7xl font-black text-center text-white tracking-tighter leading-tight max-w-5xl"
+                            className="text-4xl md:text-6xl lg:text-7xl font-black text-center text-black dark:text-white tracking-tighter leading-tight max-w-5xl"
                         >
                             {t("success_1")} <br className="hidden md:block" />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
@@ -359,7 +470,7 @@ export function ContactForm() {
                             animate={{ opacity: 1 }}
                             transition={{ delay: 2, duration: 1 }}
                             onClick={handleReset}
-                            className="mt-16 px-8 py-3 rounded-full border border-white/20 text-white hover:bg-white hover:text-black transition-all font-bold tracking-widest uppercase text-sm"
+                            className="mt-16 px-8 py-3 rounded-full border border-black/20 dark:border-white/20 text-black dark:text-white hover:bg-white hover:text-black transition-all font-bold tracking-widest uppercase text-sm"
                         >
                             {t("return_btn")}
                         </motion.button>

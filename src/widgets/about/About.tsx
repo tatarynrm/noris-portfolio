@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import ParticleImage from "./ParticleImage";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useTranslations } from "next-intl";
@@ -86,7 +87,7 @@ function Stat({ value, label, suffix = "" }: { value: number; label: string; suf
         <div className="flex flex-col items-center text-center">
             <span
                 ref={ref}
-                className="text-4xl lg:text-5xl font-black text-white tabular-nums leading-none"
+                className="text-4xl lg:text-5xl font-black text-gray-900 dark:text-white tabular-nums leading-none"
             >
                 {value}{suffix}
             </span>
@@ -242,6 +243,7 @@ export function About() {
         { emoji: "💸", key: "m3" as const },
     ];
 
+    const badges = [t("badge_0"), t("badge_1"), t("badge_2")];
     const stack = ["Next.js", "NestJS", "TypeScript", "GSAP", "PostgreSQL", "React", "Tailwind"];
 
     return (
@@ -275,15 +277,15 @@ export function About() {
             <section
                 id="about"
                 ref={sectionRef}
-                className="relative bg-[#020202] py-24 lg:py-36 overflow-hidden"
+                className="relative bg-background py-24 lg:py-36 overflow-hidden md:no-alt-bg"
             >
                 {/* ── full-page dark grid texture ─────────────── */}
                 <div
                     aria-hidden
-                    className="pointer-events-none absolute inset-0 opacity-[0.025]"
+                    className="pointer-events-none absolute inset-0 opacity-[0.025] dark:opacity-[0.025] light:opacity-[0.05]"
                     style={{
                         backgroundImage:
-                            "linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px)",
+                            "linear-gradient(currentColor 1px,transparent 1px),linear-gradient(90deg,currentColor 1px,transparent 1px)",
                         backgroundSize: "48px 48px",
                     }}
                 />
@@ -294,7 +296,7 @@ export function About() {
                     className="pointer-events-none absolute inset-0 flex items-center justify-center select-none overflow-hidden"
                 >
                     <span
-                        className="text-[22vw] font-black tracking-[-0.08em] text-white/[0.018] uppercase leading-none"
+                        className="text-[22vw] font-black tracking-[-0.08em] text-black/[0.015] dark:text-white/[0.018] uppercase leading-none"
                     >
                         NORIS
                     </span>
@@ -330,13 +332,10 @@ export function About() {
                             <div className="relative w-full max-w-[320px] mx-auto lg:mx-0 perspective-[1000px]">
                                 <RadarRing />
 
-                                <div className="about-img-wrap relative aspect-[3/4] w-full rounded-[2.5rem] overflow-hidden border border-white/8 shadow-[0_50px_130px_rgba(0,0,0,0.75)]">
-                                    <Image
+                                <div className="about-img-wrap relative aspect-[3/4] w-full rounded-[2.5rem] overflow-hidden border border-black/5 dark:border-white/8 shadow-[0_50px_130px_rgba(0,0,0,0.15)] dark:shadow-[0_50px_130px_rgba(0,0,0,0.75)] bg-black/5 dark:bg-black/20">
+                                    <ParticleImage
                                         src="/me.jpg"
                                         alt="Roman Noris"
-                                        fill
-                                        className="object-cover"
-                                        priority
                                     />
 
                                     {/* moving scanline */}
@@ -381,16 +380,18 @@ export function About() {
                                 </div>
 
                                 {/* Dynamic Sliding Info Panel */}
-                                <div className="info-panel absolute -right-6 lg:-right-16 bottom-16 lg:bottom-24 z-20 backdrop-blur-md bg-black/40 border border-white/10 p-4 lg:p-5 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.5)] max-w-[180px] lg:max-w-[220px]">
+                                <div className="info-panel absolute -right-6 lg:-right-16 bottom-16 lg:bottom-24 z-20 backdrop-blur-md bg-white/40 dark:bg-black/40 border border-black/5 dark:border-white/10 p-4 lg:p-5 rounded-2xl shadow-card dark:shadow-[0_10px_40px_rgba(0,0,20,0.5)] max-w-[180px] lg:max-w-[220px]">
                                     <div className="flex items-center gap-3 mb-2.5">
                                         <div className="relative flex h-2.5 w-2.5">
                                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
                                             <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-500"></span>
                                         </div>
-                                        <span className="text-[10px] font-mono text-blue-400 uppercase tracking-[0.2em]">Current Status</span>
+                                        <span className="text-[10px] font-mono text-blue-500 dark:text-blue-400 uppercase tracking-[0.2em]">{t("status_label")}</span>
                                     </div>
-                                    <p className="text-xs lg:text-sm text-gray-200 font-medium leading-relaxed">
-                                        Crafting <span className="text-white font-bold">hyper-performant</span> web experiences with <span className="text-blue-400">Next.js & GSAP</span>.
+                                    <p className="text-xs lg:text-sm text-gray-700 dark:text-gray-200 font-medium leading-relaxed">
+                                        {t.rich("status_text", {
+                                            b: (chunks) => <b className="text-gray-900 dark:text-white font-bold">{chunks}</b>
+                                        })}
                                     </p>
                                 </div>
                             </div>
@@ -409,23 +410,23 @@ export function About() {
                             {/* ── HEADING ───────────────────── */}
                             <header className="rv-item">
                                 <h2
-                                    className="font-black uppercase leading-[0.82] tracking-[-0.04em] text-white"
+                                    className="font-black uppercase leading-[0.82] tracking-[-0.04em] text-gray-900 dark:text-white"
                                     style={{ fontSize: "clamp(3rem,8vw,8rem)" }}
                                 >
                                     {t("title_1")}
                                     <br />
-                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-500">
+                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 dark:from-blue-400 dark:via-cyan-300 dark:to-blue-500">
                                         {t("title_2")}
                                     </span>
                                 </h2>
                             </header>
 
                             {/* ── TYPEWRITER BIO ─────────────── */}
-                            <div className="rv-item p-6 lg:p-8 rounded-2xl bg-gray-50 dark:bg-white/[0.015] border border-gray-200 dark:border-white/[0.06] font-mono">
-                                <p className="text-[10px] text-green-400/60 tracking-[0.35em] uppercase mb-3">
+                            <div className="rv-item p-6 lg:p-8 rounded-2xl bg-gray-50/50 dark:bg-white/[0.015] border border-gray-200 dark:border-white/[0.06] font-mono">
+                                <p className="text-[10px] text-green-600 dark:text-green-400/60 tracking-[0.35em] uppercase mb-3">
                                     $ bio --load
                                 </p>
-                                <p className="text-base lg:text-lg text-gray-200 leading-relaxed cursor-blink min-h-[3rem]">
+                                <p className="text-base lg:text-lg text-gray-700 dark:text-gray-200 leading-relaxed cursor-blink min-h-[3rem]">
                                     {typedBio}
                                 </p>
                             </div>
@@ -435,15 +436,15 @@ export function About() {
                                 {values.map((v, i) => (
                                     <div
                                         key={i}
-                                        className="vcard group flex items-center gap-5 px-6 py-5 rounded-2xl bg-gray-50 dark:bg-white/[0.025] border border-gray-200 dark:border-white/[0.06] hover:border-blue-500/30 hover:bg-blue-50 dark:hover:bg-blue-500/[0.05] transition-all duration-500 cursor-default"
+                                        className="vcard group flex items-center gap-5 px-6 py-5 rounded-2xl bg-gray-50/50 dark:bg-white/[0.025] border border-gray-200 dark:border-white/[0.06] hover:border-blue-500/30 hover:bg-blue-50 dark:hover:bg-blue-500/[0.05] transition-all duration-500 cursor-default shadow-sm hover:shadow-md"
                                     >
-                                        <span className="text-2xl shrink-0 group-hover:scale-110 transition-transform duration-300">
+                                        <span className="text-2xl shrink-0 group-hover:scale-110 transition-transform duration-300 text-gray-900 dark:text-white">
                                             {v.emoji}
                                         </span>
-                                        <p className="text-sm lg:text-base text-gray-200 font-light leading-snug">
+                                        <p className="text-sm lg:text-base text-gray-600 dark:text-gray-200 font-light leading-snug">
                                             {t(v.key)}
                                         </p>
-                                        <span className="ml-auto text-white/10 group-hover:text-blue-400/50 group-hover:translate-x-1 transition-all duration-300 shrink-0">
+                                        <span className="ml-auto text-gray-300 dark:text-white/10 group-hover:text-blue-500 transition-all duration-300 shrink-0">
                                             →
                                         </span>
                                     </div>
@@ -457,6 +458,14 @@ export function About() {
 
                             {/* ── STACK BADGES ───────────────── */}
                             <div className="badge-row rv-item flex flex-wrap gap-2.5">
+                                {badges.map((b) => (
+                                    <span
+                                        key={b}
+                                        className="badge-chip px-4 py-1.5 rounded-full text-[10px] font-black tracking-[0.25em] uppercase text-blue-600/70 dark:text-blue-400/60 bg-blue-500/5 border border-blue-500/10 hover:border-blue-500/30 hover:text-blue-600 dark:hover:text-white/90 transition-all duration-300 cursor-default"
+                                    >
+                                        {b}
+                                    </span>
+                                ))}
                                 {stack.map((b) => (
                                     <span
                                         key={b}
@@ -467,7 +476,6 @@ export function About() {
                                 ))}
                             </div>
                         </div>
-
                     </div>
                 </div>
             </section>

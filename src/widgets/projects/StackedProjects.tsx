@@ -36,6 +36,30 @@ export function StackedProjects() {
                     }
                 });
             });
+
+            // Kinetic Header Animation
+            const headerTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: ".projects-header-text",
+                    start: "top 90%",
+                    once: true,
+                }
+            });
+
+            headerTl.from(".projects-title-part", {
+                x: -100,
+                skewX: -20,
+                opacity: 0,
+                duration: 1.2,
+                stagger: 0.1,
+                ease: "power4.out"
+            })
+                .from(".projects-header-btn", {
+                    x: 50,
+                    opacity: 0,
+                    duration: 1,
+                    ease: "back.out(1.7)"
+                }, "-=0.8");
         }, containerRef);
 
         return () => ctx.revert();
@@ -101,21 +125,25 @@ export function StackedProjects() {
     return (
         <section ref={containerRef} className="relative w-full py-32 px-4 md:px-8 max-w-7xl mx-auto" id="projects">
 
-            {/* Header Area */}
-            <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
-                <div>
+            <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8 overflow-hidden">
+                <div className="projects-header-text">
                     <h2 className="text-5xl md:text-7xl font-extrabold tracking-tighter text-gray-900 dark:text-white leading-tight">
-                        {t("title_1")} <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">{t("title_2")}</span>
+                        <span className="inline-block projects-title-part">{t("title_1")}</span>{" "}
+                        <span className="inline-block projects-title-part text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">
+                            {t("title_2")}
+                        </span>
                     </h2>
                 </div>
 
-                <Link
-                    href="/projects"
-                    className="group flex items-center gap-3 px-8 py-4 rounded-full border border-gray-300 dark:border-white/20 hover:border-blue-500 dark:hover:border-blue-500 transition-colors backdrop-blur-md bg-white/5 font-bold tracking-widest uppercase text-sm"
-                >
-                    {t("show_all")}
-                    <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
-                </Link>
+                <div className="projects-header-btn">
+                    <Link
+                        href="/projects"
+                        className="group flex items-center gap-3 px-8 py-4 rounded-full border border-gray-300 dark:border-white/20 hover:border-blue-500 dark:hover:border-blue-500 transition-colors backdrop-blur-md bg-white/5 font-bold tracking-widest uppercase text-sm"
+                    >
+                        {t("show_all")}
+                        <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
+                    </Link>
+                </div>
             </div>
 
             {/* Stacked Cards Container */}
@@ -126,7 +154,7 @@ export function StackedProjects() {
                         ref={(el) => { cardsRef.current[i] = el; }}
                         style={{ top: "120px" }} // The sticky pin coordinate
                         onClick={(e) => handleProjectClick(e, i, proj.slug)}
-                        className={`project-card group sticky w-full h-[60vh] md:h-[500px] flex flex-col justify-between overflow-hidden rounded-3xl border border-white/20 shadow-2xl transition-all origin-top cursor-pointer hover:shadow-[0_0_50px_rgba(59,130,246,0.3)] bg-gradient-to-br ${proj.color}`}
+                        className={`project-card group sticky w-full h-[60vh] md:h-[500px] flex flex-col justify-between overflow-hidden rounded-3xl border border-black/5 dark:border-white/20 shadow-2xl transition-all origin-top cursor-pointer hover:shadow-[0_0_50px_rgba(59,130,246,0.3)] bg-gradient-to-br ${proj.color}`}
                     >
                         {/* Hover Image Reveal Layer */}
                         <div className="absolute inset-0 z-0 transition-transform duration-700 ease-out group-hover:scale-105">
@@ -159,7 +187,7 @@ export function StackedProjects() {
 
                                 {/* Explore Button */}
                                 <div className="hidden md:flex items-center gap-2 px-6 py-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white font-bold tracking-widest uppercase text-sm opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-x-4 group-hover:translate-x-0">
-                                    Explore <ArrowRight className="w-4 h-4" />
+                                    {t("view_project")} <ArrowRight className="w-4 h-4" />
                                 </div>
                             </div>
                         </div>

@@ -10,12 +10,12 @@ export const servicesData = [
         border: "group-hover:border-blue-500/50",
         content: `## Architecting Digital Ecosystems
 
+### Unyielding Execution Speed
 The modern web is congested with slow, heavy monoliths masquerading as dynamic applications. To pierce through this noise, we must abandon generic templating and forge custom, high-performance interfaces from the ground up, utilizing the React virtual DOM and Next.js server-side telemetry.
 
-### Unyielding Execution Speed
 By aggressively pushing compute to the Vercel edge network and leveraging React Server Components, we eliminate client-side JavaScript payloads. This architecture ensures an instantaneous Time-to-Interactive, scoring deep in the perfect 99th percentile across Lighthouse metrics. 
 
-### The Antigravity Aesthetic
+### The Engineering Aesthetic
 Performance without visual excellence is merely raw utility. True mastery requires weaving data states into fluid, cinematic micro-interactions. Utilizing GSAP mathematics and Framer Motion spring physics, we choreograph DOM elements into a unified, immersive experience that feels as much like a compiled video game as it does a robust web application. Deploying these constructs establishes digital dominance for your brand.`,
         tools: ["Next.js App Router", "React Server Components", "Tailwind CSS", "GSAP ScrollTrigger", "Three.js / WebGL"]
     },

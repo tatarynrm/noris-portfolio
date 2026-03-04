@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,6 +15,7 @@ gsap.registerPlugin(ScrollTrigger);
  *  Title fades in from below once the image is large enough. *
  * ─────────────────────────────────────────────────────────── */
 export function ProjectsTeaser() {
+    const t = useTranslations("Projects");
     const wrapRef = useRef<HTMLDivElement>(null);
     const imgWrapRef = useRef<HTMLDivElement>(null);
     const imgInnerRef = useRef<HTMLDivElement>(null);
@@ -141,7 +143,7 @@ export function ProjectsTeaser() {
                 >
                     {/* eyebrow */}
                     <p className="text-[10px] font-mono tracking-[0.6em] text-blue-400/70 uppercase">
-                        / selected works /
+                        / {t("teaser_selected")} /
                     </p>
 
                     {/* Premium Typography Glow Behind Text */}
@@ -157,15 +159,15 @@ export function ProjectsTeaser() {
                             filter: "drop-shadow(0 10px 40px rgba(59,130,246,0.4))",
                         }}
                     >
-                        <div className="overflow-hidden pb-2"><div className="teaser-word inline-block origin-bottom transform-gpu">Давайте</div></div><br />
-                        <div className="overflow-hidden pb-2"><div className="teaser-word inline-block origin-bottom transform-gpu">подивимось</div></div><br />
+                        <div className="overflow-hidden pb-2"><div className="teaser-word inline-block origin-bottom transform-gpu">{t("teaser_headline_1")}</div></div><br />
+                        <div className="overflow-hidden pb-2"><div className="teaser-word inline-block origin-bottom transform-gpu">{t("teaser_headline_2")}</div></div><br />
 
                         <div className="mt-6 sm:mt-8 overflow-hidden">
                             <span
                                 className="teaser-word inline-block origin-bottom transform-gpu"
                                 style={{ fontSize: "0.45em", letterSpacing: "0.2em", WebkitTextFillColor: "rgba(255,255,255,0.5)", textShadow: "none" }}
                             >
-                                на мої проекти
+                                {t("teaser_sub")}
                             </span>
                         </div>
                     </h2>
