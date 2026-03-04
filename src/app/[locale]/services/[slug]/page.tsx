@@ -8,7 +8,7 @@ export function generateStaticParams() {
     }));
 }
 
-export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function ServicePage({ params }: { params: Promise<{ slug: string; locale: string }> }) {
     const resolvedParams = await params;
     const service = servicesData.find((s) => s.slug === resolvedParams.slug);
 

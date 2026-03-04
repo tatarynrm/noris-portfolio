@@ -13,7 +13,7 @@ export async function generateStaticParams() {
 
 // 2. Типізуємо пропси згідно з вимогами Next.js 15
 interface Props {
-    params: Promise<{ slug: string }>;
+    params: Promise<{ slug: string; locale: string }>;
 }
 
 export default async function SkillPage({ params }: Props) {

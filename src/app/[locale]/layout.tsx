@@ -103,6 +103,10 @@ import { routing } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 import { ScrollProgress } from "@/shared/ui/ScrollProgress";
 
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
 export default async function RootLayout({
   children,
   params,
