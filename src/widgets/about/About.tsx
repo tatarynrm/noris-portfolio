@@ -118,8 +118,9 @@ function SpoilerCard({ emoji, text, revealText }: { emoji: string; text: string;
     return (
         <div
             className="vcard group flex items-center gap-5 px-6 py-5 rounded-2xl bg-gray-50/50 dark:bg-white/[0.025] border border-gray-200 dark:border-white/[0.06] overflow-hidden hover:border-blue-500/30 hover:bg-blue-50 dark:hover:bg-blue-500/[0.05] transition-all duration-500 shadow-sm hover:shadow-md cursor-pointer md:cursor-default relative"
-            onMouseEnter={() => mounted && setIsRevealed(true)}
-            onClick={() => mounted && setIsRevealed(true)}
+            onMouseEnter={() => setIsRevealed(true)}
+            onClick={() => setIsRevealed(true)}
+            style={{ opacity: 1 /* fallback if GSAP fails */ }}
         >
             <span className="text-2xl shrink-0 text-gray-900 dark:text-white relative z-10 group-hover:scale-110 transition-transform duration-300">
                 {emoji}
@@ -132,7 +133,6 @@ function SpoilerCard({ emoji, text, revealText }: { emoji: string; text: string;
                     initial={false}
                     animate={{
                         opacity: isRevealed ? 1 : 0,
-                        filter: isRevealed ? 'blur(0px)' : 'blur(8px)',
                         scale: isRevealed ? 1 : 0.95
                     }}
                     transition={{ duration: 0.5, ease: "easeOut" }}
@@ -145,41 +145,36 @@ function SpoilerCard({ emoji, text, revealText }: { emoji: string; text: string;
                 <div
                     className="absolute inset-x-0 inset-y-[-4px] z-10 flex items-center justify-center pointer-events-none"
                 >
-                    {/* The scatter blocks wrapper */}
-                    <div className="absolute inset-0 grid" style={{ gridTemplateColumns: `repeat(${cols}, 1fr)`, gridTemplateRows: `repeat(${rows}, 1fr)`, gap: '2px' }}>
-                        {blocks.map((_, i) => {
-                            // deterministic pseudo-random logic to completely avoid SSR Hydration Mismatch
-                            const pseudoRandom1 = (Math.sin(i * 12.9898) * 43758.5453) % 1;
-                            const pseudoRandom2 = (Math.cos(i * 78.233) * 43758.5453) % 1;
-                            const pseudoRandom3 = (Math.sin(i * 45.123) * 43758.5453) % 1;
-
-                            return (
+                    {/* The scatter blocks wrapper (only after mount to prevent hydration issues with Math.random) */}
+                    {mounted && (
+                        <div className="absolute inset-0 grid" style={{ gridTemplateColumns: `repeat(${cols}, 1fr)`, gridTemplateRows: `repeat(${rows}, 1fr)`, gap: '2px' }}>
+                            {blocks.map((_, i) => (
                                 <motion.div
                                     key={i}
                                     initial={false}
                                     animate={isRevealed ? {
                                         opacity: 0,
-                                        x: pseudoRandom1 * 200,
-                                        y: pseudoRandom2 * 200,
+                                        x: (Math.random() - 0.5) * 200,
+                                        y: (Math.random() - 0.5) * 200,
                                         scale: 0,
-                                        rotate: pseudoRandom3 * 260
+                                        rotate: (Math.random() - 0.5) * 260
                                     } : {
                                         opacity: 1,
                                         x: 0, y: 0, scale: 1, rotate: 0
                                     }}
-                                    transition={{ duration: 0.6, ease: "easeOut", delay: Math.abs(pseudoRandom1) * 0.1 }}
-                                    className="bg-gray-300/80 dark:bg-gray-800/90 backdrop-blur-xl rounded-[2px] border border-white/20 dark:border-white/5"
+                                    transition={{ duration: 0.6, ease: "easeOut", delay: Math.random() * 0.1 }}
+                                    className="bg-gray-200 dark:bg-gray-800 rounded-[2px] border border-white/20 dark:border-white/5"
                                 />
-                            );
-                        })}
-                    </div>
+                            ))}
+                        </div>
+                    )}
 
                     {/* The "Reveal" button for mobile */}
                     <motion.button
                         initial={false}
                         animate={isRevealed ? { opacity: 0, scale: 0.5 } : { opacity: 1, scale: 1 }}
                         transition={{ duration: 0.3 }}
-                        className="pointer-events-auto relative z-20 px-4 py-1.5 bg-blue-500/90 backdrop-blur-md text-white border border-blue-400/50 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-lg shadow-lg md:hidden"
+                        className="pointer-events-auto relative z-20 px-4 py-1.5 bg-blue-500/90 text-white border border-blue-400/50 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-lg shadow-lg md:hidden"
                     >
                         {revealText}
                     </motion.button>
@@ -269,7 +264,7 @@ export function About() {
                 gsap.from(".rv-item", {
                     opacity: 0,
                     y: 44,
-                    filter: "blur(12px)",
+
                     stagger: 0.15,
                     duration: 1.1,
                     ease: "power3.out",
@@ -308,7 +303,7 @@ export function About() {
                 gsap.from(".vcard", {
                     opacity: 0,
                     x: 60,
-                    filter: "blur(8px)",
+
                     stagger: 0.12,
                     duration: 0.9,
                     ease: "power3.out",
@@ -475,7 +470,7 @@ export function About() {
                                 </div>
 
                                 {/* Dynamic Sliding Info Panel */}
-                                <div className="info-panel absolute -right-6 lg:-right-16 bottom-16 lg:bottom-24 z-20 backdrop-blur-md bg-white/40 dark:bg-black/40 border border-black/5 dark:border-white/10 p-4 lg:p-5 rounded-2xl shadow-card dark:shadow-[0_10px_40px_rgba(0,0,20,0.5)] max-w-[180px] lg:max-w-[220px]">
+                                <div className="info-panel absolute -right-6 lg:-right-16 bottom-16 lg:bottom-24 z-20 bg-white/40 dark:bg-black/40 border border-black/5 dark:border-white/10 p-4 lg:p-5 rounded-2xl shadow-card dark:shadow-[0_10px_40px_rgba(0,0,20,0.5)] max-w-[180px] lg:max-w-[220px]">
                                     <div className="flex items-center gap-3 mb-2.5">
                                         <div className="relative flex h-2.5 w-2.5">
                                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
@@ -492,7 +487,7 @@ export function About() {
                             </div>
 
                             {/* ── STATS row ──────────────────── */}
-                            <div className="rv-item grid grid-cols-3 gap-6 w-full max-w-[320px] mx-auto lg:mx-0 px-4 py-5 rounded-2xl bg-gray-50 dark:bg-white/[0.025] border border-gray-200 dark:border-white/[0.06] backdrop-blur-sm">
+                            <div className="rv-item grid grid-cols-3 gap-6 w-full max-w-[320px] mx-auto lg:mx-0 px-4 py-5 rounded-2xl bg-gray-50 dark:bg-white/[0.025] border border-gray-200 dark:border-white/[0.06]">
                                 <Stat value={4} suffix="+" label="Years" />
                                 <Stat value={30} suffix="+" label="Projects" />
                                 <Stat value={99} suffix="%" label="Uptime" />
