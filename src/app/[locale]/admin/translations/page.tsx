@@ -121,16 +121,17 @@ export default function AdminTranslations() {
 
     const batchAddMutation = useMutation({
         mutationFn: async () => {
-            const promises = Object.entries(newValues)
+            const dtos = Object.entries(newValues)
                 .filter(([_, val]) => val.trim() !== "")
-                .map(([lang, val]) =>
-                    authApi.post("/translations/upsert", {
-                        locale: lang,
-                        key: newKey,
-                        value: val,
-                    })
-                );
-            return Promise.all(promises);
+                .map(([lang, val]) => ({
+                    locale: lang,
+                    key: newKey,
+                    value: val,
+                }));
+
+            if (dtos.length > 0) {
+                return authApi.post("/translations/upsert-bulk", { translations: dtos });
+            }
         },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["admin", "translations"] });
@@ -204,19 +205,18 @@ export default function AdminTranslations() {
         totalKeys = tasks.length;
         setImportProgress({ current: 0, total: totalKeys, file: "Processing keys..." });
 
-        // 2. Sequential Upload
-        for (let i = 0; i < tasks.length; i++) {
-            const task = tasks[i];
-            setImportProgress(prev => ({ ...prev, current: i + 1, file: `Updating [${task.locale}] ${task.key}` }));
+        // 2. Bulk Upload in chunks
+        const CHUNK_SIZE = 100;
+        for (let i = 0; i < tasks.length; i += CHUNK_SIZE) {
+            const chunk = tasks.slice(i, i + CHUNK_SIZE);
+            setImportProgress(prev => ({ ...prev, current: Math.min(i + CHUNK_SIZE, totalKeys), file: `Batch uploading ${chunk.length} keys...` }));
 
             try {
-                await authApi.post("/translations/upsert", {
-                    locale: task.locale,
-                    key: task.key,
-                    value: task.value,
+                await authApi.post("/translations/upsert-bulk", {
+                    translations: chunk,
                 });
             } catch (err) {
-                setImportLogs(prev => [...prev, { type: 'error', message: `Error updating ${task.key} (${task.locale}): ${err instanceof Error ? err.message : 'Upload failed'}`, timestamp: new Date() }]);
+                setImportLogs(prev => [...prev, { type: 'error', message: `Error in batch at index ${i}: ${err instanceof Error ? err.message : 'Upload failed'}`, timestamp: new Date() }]);
             }
         }
 
