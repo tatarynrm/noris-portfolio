@@ -9,7 +9,7 @@ import { useState } from "react";
 import { Link } from "@/i18n/routing";
 
 export default function ForgotPasswordPage() {
-    const t = useTranslations("Auth");
+    const t = useTranslations("auth");
     const [email, setEmail] = useState("");
     const [isSuccess, setIsSuccess] = useState(false);
     const [error, setError] = useState("");

@@ -10,7 +10,7 @@ import { ArrowRight, Cpu, Network, Truck } from "lucide-react";
 gsap.registerPlugin(ScrollTrigger);
 
 export function StackedProjects() {
-    const t = useTranslations("Projects");
+    const t = useTranslations("projects");
     const containerRef = useRef<HTMLDivElement>(null);
     const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
     const router = useRouter();

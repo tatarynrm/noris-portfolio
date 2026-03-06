@@ -10,7 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 export function Experience() {
     const containerRef = useRef<HTMLDivElement>(null);
     const timelineRef = useRef<HTMLDivElement>(null);
-    const t = useTranslations("Experience");
+    const t = useTranslations("experience");
 
     // Utility for masked word animations
     const splitWordsMasked = (text: string) => {

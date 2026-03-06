@@ -27,7 +27,7 @@ export function CVButton({ variant = "compact", onPick }: CVButtonProps) {
     const [open, setOpen] = useState(false);
     const wrapRef = useRef<HTMLDivElement>(null);
     const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-    const tNav = useTranslations("Navigation");
+    const tNav = useTranslations("navigation");
 
     const cancelClose = () => {
         if (closeTimer.current) clearTimeout(closeTimer.current);

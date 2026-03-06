@@ -1,108 +1,127 @@
 {
-    "Index": {
+    "index": {
         "title": "Roman Noris | Senior Full-stack Developer",
-        "description": "Portfolio Romana Norisa - Senior Full-stack developera, eksperta w Next.js, NestJS oraz nowoczesnych rozwiązaniach architektonicznych."
+        "description": "Portfolio Romana Norisa - Senior Full-stack developera, eksperta w Next.js, NestJS i nowoczesnych rozwiązaniach architektonicznych."
     },
-    "Navigation": {
+    "navigation": {
         "about": "O mnie",
         "experience": "Doświadczenie",
-        "skills": "Stos",
+        "skills": "Umiejętności",
         "services": "Usługi",
         "selected_works": "Wybrane projekty",
+        "process": "Proces pracy",
         "contact": "Kontakt",
-        "view_all_projects": "Wszystkie prace",
+        "view_all_projects": "Wszystkie projekty",
         "signin": "Zaloguj się",
         "signout": "Wyloguj się",
         "admin_panel": "Panel Admina",
         "preview_cv": "Podgląd CV",
         "download_cv": "Pobierz CV",
-        "contact_me": "Skontaktuj się"
+        "contact_me": "Skontaktuj się ze mną"
     },
-    "Intro": {
-        "initializing": "Inicjalizacja systemu...",
-        "tagline": "Jakość. Wydajność. Rezultat."
+    "intro": {
+        "initializing": "Inicjowanie systemu...",
+        "tagline": "Jakość. Wydajność. Wyniki."
     },
-    "Hero": {
+    "hero": {
         "pill": "Senior Full-stack Developer",
-        "status": "Dostępny dla nowych wyzwań",
+        "status": "Otwarty na nowe wyzwania",
         "welcome": "Cześć, jestem",
         "name": "Roman Noris",
-        "headline": "Tworzę rozwiązania cyfrowe,",
+        "headline": "Tworzę cyfrowe rozwiązania,",
         "headline_gradient": "które zachwycają",
         "subtitle": "Architekt złożonych ekosystemów i inteligentnych interfejsów. Skupiam się na wydajności, skalowalności i wynikach biznesowych.",
-        "explore": "Odkryj stos"
+        "explore": "Odkryj umiejętności"
     },
-    "StarWars": {
+    "starwars": {
         "episode": "Epizod",
         "title_logic_part_1": "MISTRZOSTWO",
         "title_logic_part_2": "LOGIKI",
-        "p1": "W świecie, gdzie chaos kodu hamuje postęp, jeden deweloper rzuca wyzwanie przeciętności.",
-        "p2": "Roman Noris buduje architektury, które wytrzymują próbę czasu i obciążenia, zamieniając złożone wymagania w eleganckie rozwiązania.",
-        "p3": "Od wyrafinowanych interfejsów po potężne systemy serwerowe — każdy bajt służy stworzeniu nieskazitelnego produktu.",
-        "p4": "Przyszłość jest tutaj. Jest napisana czystym i wydajnym kodem..."
+        "p1": "W świecie, gdzie chaos w kodzie hamuje postęp, jeden programista rzuca wyzwanie przeciętności.",
+        "p2": "Roman Noris buduje architektury, które wytrzymują próbę czasu i obciążeń, zamieniając złożone wymagania w eleganckie rozwiązania.",
+        "p3": "Od wyrafinowanych interfejsów po potężne systemy serwerowe – każdy bajt służy stworzeniu nieskazitelnego produktu.",
+        "p4": "Przyszłość jest tutaj. Jest zapisana czystym i wydajnym kodem..."
     },
-    "About": {
-        "status_label": "Aktualny status",
-        "status_text": "Roman jest otwarty na <b>ciekawe propozycje</b> i partnerstwa strategiczne.",
+    "about": {
+        "status_label": "Obecny status",
+        "status_text": "Roman jest otwarty na <b>ciekawe propozycje</b> i strategiczne partnerstwa.",
         "title_1": "Architekt",
         "title_2": "Rozwiązań",
-        "p1": "Specjalizuję się w tworzeniu systemów wysokiej wydajności oraz interfejsów klasy premium. Moja filozofia to odrzucenie standardowych szablonów na rzecz unikalnych rozwiązań inżynieryjnych, które działają szybciej, wyglądają lepiej i przynoszą realną wartość biznesową.",
-        "p2": "Łącząc nowoczesny stos Next.js / NestJS z głębokim zrozumieniem procesów biznesowych, tworzę produkty, które stają się przewagą konkurencyjną.",
+        "p1": "Specjalizuję się w tworzeniu systemów o wysokim obciążeniu i interfejsów premium. Moja filozofia to odrzucenie standardowych szablonów na rzecz unikalnych rozwiązań inżynieryjnych, które działają szybciej, wyglądają lepiej i przynoszą realną wartość dla biznesu.",
+        "p2": "Łącząc nowoczesny stos Next.js / NestJS z głębokim zrozumieniem procesów biznesowych, tworzę produkty stanowiące przewagę konkurencyjną.",
         "m1": "Maksymalna szybkość reakcji i rozwiązania zorientowane na wydajność.",
-        "m2": "Design premium i nieskazitelne doświadczenie użytkownika.",
-        "m3": "Otwarty na złożone wyzwania i projekty o dużej skali.",
-        "badge_0": "Expert level",
-        "badge_1": "Open to offers",
+        "m2": "Design premium i bezbłędne doświadczenie użytkownika.",
+        "m3": "Otwarty na złożone wyzwania i projekty na dużą skalę.",
+        "badge_0": "Poziom ekspercki",
+        "badge_1": "Otwarty na oferty",
         "badge_2": "Full-stack"
     },
-    "Services": {
+    "services": {
         "title_1": "Moja",
         "title_2": "Ekspertyza",
-        "subtitle": "Przekształcam pomysły w potężne narzędzia technologiczne, wykorzystując najnowocześniejsze podejścia architektoniczne.",
+        "subtitle": "Przekształcam pomysły w potężne narzędzia technologiczne, korzystając z najnowocześniejszych podejść architektonicznych.",
         "deep_dive": "Dowiedz się więcej",
-        "back_to_services": "Powrót do usług",
+        "back_to_services": "Wróć do usług",
         "item_0_title": "Aplikacje Webowe",
-        "item_0_desc": "Wysokowydajne, skalowalne i imponujące wizualnie aplikacje oparte na React i Next.js.",
+        "item_0_desc": "Wysokowydajne, skalowalne i oszałamiające wizualnie aplikacje w React i Next.js.",
         "item_1_title": "Oprogramowanie Desktopowe",
-        "item_1_desc": "Rozwiązania wieloplatformowe z natywnym odczuciem, opracowane na Electron lub Tauri.",
+        "item_1_desc": "Rozwiązania międzyplatformowe stworzone w Electron lub Tauri dla maksymalnej mocy.",
         "item_2_title": "Aplikacje Mobilne",
-        "item_2_desc": "Płynne interfejsy 120fps w React Native dla iOS i Android jednocześnie.",
+        "item_2_desc": "Płynne interfejsy 120fps w React Native dla iOS i Android.",
         "item_3_title": "Automatyzacja Procesów",
-        "item_3_desc": "Eliminacja błędu ludzkiego poprzez rozwój botów, skryptów i rurociągów CRON.",
+        "item_3_desc": "Eliminacja błędu ludzkiego poprzez tworzenie botów, skryptów i procesów CRON.",
         "item_4_title": "Boty Telegram",
-        "item_4_desc": "Inteligentni agenci do natychmiastowej interakcji, powiadomień i zarządzania logiką biznesową."
+        "item_4_desc": "Inteligentni agenci do błyskawicznej interakcji, powiadomień i zarządzania logiką biznesową."
     },
-    "Skills": {
-        "title_1": "Arsenał",
-        "title_2": "Technologiczny",
+    "skills": {
+        "title_1": "Technologiczny",
+        "title_2": "Arsenał",
         "subtitle": "Mój stos opiera się na stabilności, szybkości i przyszłej skalowalności.",
-        "inspect": "Analizuj",
+        "inspect": "Analiza",
         "item_0_cat": "Architektura Frontend",
         "item_1_cat": "Backend i API",
-        "item_2_cat": "Bazy Danych i Cache",
+        "item_2_cat": "Bazy danych i Cache",
         "item_3_cat": "DevOps i Narzędzia"
     },
-    "Projects": {
+    "projects": {
         "title_1": "Projekty",
         "title_2": "Najwyższej Klasy",
         "subtitle": "Każdy przypadek to wynik poszukiwania idealnej równowagi między funkcjonalnością a estetyką.",
         "view_project": "Zobacz projekt",
         "teaser_selected": "Wybrane prace",
         "teaser_headline_1": "ESTETYKA",
-        "teaser_headline_2": "PERFEKCJI",
+        "teaser_headline_2": "WYNIKU",
         "teaser_sub": "Poznaj moje najnowsze cyfrowe wcielenia",
         "p1_title": "System Automatyzacji Logistyki",
         "p2_title": "Platforma Analityki Krypto",
         "p3_title": "Aplikacja do Zarządzania Zasobami"
     },
-    "Contact": {
-        "title_1": "Omówimy",
-        "title_2": "Projekt?",
-        "subtitle": "Zawsze jestem gotowy na nowe wyzwania i cenię odważne pomysły. Napisz do mnie, a stworzymy coś niezwykłego.",
-        "name_label": "Twoje imię",
-        "name_placeholder": "Jak mogę się do Ciebie zwracać?",
+    "work_stages": {
+        "label": "Możliwości",
+        "title_1": "Wszystko czego potrzebujesz",
+        "title_2": "do sukcesu",
+        "subtitle": "Od głębokiej analizy po końcowe wdrożenie – mój proces tworzenia opiera się na przejrzystości i maksymalnej efektywności.",
+        "button": "Odkryj",
+        "details": "Szczegóły",
+        "stage_1_title": "Analiza i Planowanie",
+        "stage_1_desc": "Głęboka analiza potrzeb biznesowych, projektowanie architektury bazy danych i tworzenie mapy drogowej.",
+        "stage_2_title": "Design i UX",
+        "stage_2_desc": "Tworzenie nowoczesnych interfejsów premium ze szczególnym naciskiem na user experience i konwersję.",
+        "stage_3_title": "Full-stack Development",
+        "stage_3_desc": "Pisanie czystego i wysoce wydajnego kodu przy użyciu technologii Next.js i NestJS.",
+        "stage_4_title": "Testowanie i Wdrożenie",
+        "stage_4_desc": "Szczegółowe testowanie, optymalizacja prędkości i bezproblemowe wdrażanie na serwery produkcyjne."
+    },
+    "contact": {
+        "title_1": "Porozmawiajmy o",
+        "title_2": "Projekcie?",
+        "subtitle": "Zawsze jestem gotów na nowe wyzwania i cenię odważne pomysły. Napisz do mnie, a stworzymy coś niezwykłego.",
+        "name_label": "Twoje Imię",
+        "name_placeholder": "Jak mam się do Ciebie zwracać?",
         "email_label": "Email",
-        "email_placeholder": "Gdzie wysłać odpowiedź?",
+        "email_placeholder": "Gdzie mam wysłać odpowiedź?",
+        "phone_label": "Numer telefonu",
+        "phone_placeholder": "+48 (XX) XXX-XX-XX",
         "objective_label": "Typ projektu",
         "objective_placeholder": "Wybierz kategorię",
         "obj_web": "Aplikacja Webowa",
@@ -112,7 +131,7 @@
         "obj_other": "Inne (Otwarty na propozycje)",
         "dynamic_web": "O jakiej technologii myślisz?",
         "dynamic_mobile": "Platforma?",
-        "dynamic_desktop": "System?",
+        "dynamic_desktop": "OS?",
         "dynamic_bot": "Cel bota?",
         "dynamic_default": "Szczegóły",
         "payload_label": "Opis zadania",
@@ -120,10 +139,11 @@
         "btn_send": "Wyślij zapytanie",
         "btn_sending": "Wysyłanie...",
         "name_error": "Imię jest wymagane",
-        "email_error": "Niepoprawny email",
+        "email_error": "Nieprawidłowy adres email",
+        "phone_error": "Wymagany jest prawidłowy numer telefonu",
         "objective_error": "Wybierz typ",
         "dynamic_error": "Pole jest wymagane",
-        "payload_error": "Opisz krótko (min. 10 znaków)",
+        "payload_error": "Proszę opisać krótko (min. 10 znaków)",
         "success_1": "DZIĘKUJĘ.",
         "success_2": "POŁĄCZENIE NAWIĄZANE.",
         "success_3": "ODPOWIEM WKRÓTCE.",

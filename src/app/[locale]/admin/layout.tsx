@@ -39,12 +39,14 @@ function NavItem({
     item,
     isSidebarOpen,
     depth = 0,
-    searchQuery = ""
+    searchQuery = "",
+    setIsMobileOpen
 }: {
     item: MenuItem;
     isSidebarOpen: boolean;
     depth?: number;
     searchQuery?: string;
+    setIsMobileOpen: (value: boolean) => void;
 }) {
     const [isExpanded, setIsExpanded] = useState(false);
     const hasChildren = item.children && item.children.length > 0;
@@ -65,7 +67,7 @@ function NavItem({
             <div className="relative group">
                 {hasChildren ? (
                     <button
-                        onClick={() => setIsExpanded(!isExpanded)}
+                        onClick={() => setIsMobileOpen(false)}
                         className={`w-full flex items-center gap-3 p-2.5 rounded-xl transition-all hover:bg-white/5 ${isExpanded ? "text-blue-400 bg-blue-500/5" : "text-gray-400"
                             }`}
                         style={{ paddingLeft: isSidebarOpen ? `${(depth * 12) + 12}px` : 'auto' }}
@@ -82,6 +84,7 @@ function NavItem({
                     </button>
                 ) : (
                     <Link
+                        onClick={() => setIsMobileOpen(false)}
                         href={item.link as any}
                         className="flex items-center gap-3 p-2.5 rounded-xl transition-all hover:bg-blue-500/10 hover:text-blue-400 group text-gray-400"
                         style={{ paddingLeft: isSidebarOpen ? `${(depth * 12) + 12}px` : 'auto' }}
@@ -110,6 +113,7 @@ function NavItem({
                             isSidebarOpen={isSidebarOpen}
                             depth={depth + 1}
                             searchQuery={searchQuery}
+                            setIsMobileOpen={setIsMobileOpen}
                         />
                     ))}
                 </div>
@@ -199,6 +203,7 @@ export default function AdminLayout({
                         item={item}
                         isSidebarOpen={isSidebarOpen || isMobileOpen}
                         searchQuery={searchQuery}
+                        setIsMobileOpen={setIsMobileOpen}
                     />
                 ))}
             </nav>

@@ -72,7 +72,7 @@ export default function ProjectDynamicPage() {
     const params = useParams();
     const slug = params.slug as string;
     const data = projectData[slug];
-    const t = useTranslations("Projects");
+    const t = useTranslations("projects");
     const containerRef = useRef<HTMLDivElement>(null);
 
     // If no specific project is mapped (like Project Zero), fallback to a generic dark layout

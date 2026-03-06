@@ -7,7 +7,7 @@ import { useRef, useState } from "react";
 import gsap from "gsap";
 
 export default function AllProjectsPage() {
-    const t = useTranslations("Projects");
+    const t = useTranslations("projects");
     const router = useRouter();
     const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
     const [isTransitioning, setIsTransitioning] = useState(false);

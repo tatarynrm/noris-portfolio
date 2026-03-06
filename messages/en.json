@@ -1,14 +1,15 @@
 {
-    "Index": {
+    "index": {
         "title": "Roman Noris | Senior Full-stack Developer",
         "description": "Portfolio of Roman Noris - Senior Full-stack developer, expert in Next.js, NestJS, and modern architectural solutions."
     },
-    "Navigation": {
+    "navigation": {
         "about": "About",
         "experience": "Experience",
         "skills": "Stack",
         "services": "Services",
         "selected_works": "Selected Works",
+        "process": "Process",
         "contact": "Contact",
         "view_all_projects": "All Works",
         "signin": "Sign In",
@@ -18,11 +19,11 @@
         "download_cv": "Download CV",
         "contact_me": "Get in Touch"
     },
-    "Intro": {
+    "intro": {
         "initializing": "Initializing system...",
         "tagline": "Quality. Performance. Results."
     },
-    "Hero": {
+    "hero": {
         "pill": "Senior Full-stack Developer",
         "status": "Available for new challenges",
         "welcome": "Hi, I am",
@@ -32,7 +33,7 @@
         "subtitle": "Architect of complex ecosystems and intelligent interfaces. Focusing on performance, scalability, and business results.",
         "explore": "Explore Stack"
     },
-    "StarWars": {
+    "starwars": {
         "episode": "Episode",
         "title_logic_part_1": "MASTERY OF",
         "title_logic_part_2": "LOGIC",
@@ -41,7 +42,7 @@
         "p3": "From refined interfaces to powerful server systems—every byte serves the purpose of creating a flawless product.",
         "p4": "The future is here. It is written in clean and efficient code..."
     },
-    "About": {
+    "about": {
         "status_label": "Current Status",
         "status_text": "Roman is open to <b>interesting offers</b> and strategic partnerships.",
         "title_1": "Solution",
@@ -55,7 +56,7 @@
         "badge_1": "Open to offers",
         "badge_2": "Full-stack"
     },
-    "Services": {
+    "services": {
         "title_1": "Technical",
         "title_2": "Expertise",
         "subtitle": "I transform ideas into powerful technological tools using the most modern architectural approaches.",
@@ -72,7 +73,7 @@
         "item_4_title": "Telegram Bots",
         "item_4_desc": "Intelligent agents for instant interaction, notifications, and business logic management."
     },
-    "Skills": {
+    "skills": {
         "title_1": "Technology",
         "title_2": "Arsenal",
         "subtitle": "My stack is built around stability, speed, and future scalability.",
@@ -82,7 +83,7 @@
         "item_2_cat": "Database & Cache",
         "item_3_cat": "DevOps & Tools"
     },
-    "Projects": {
+    "projects": {
         "title_1": "Fine-tuned",
         "title_2": "Projects",
         "subtitle": "Every case is the result of finding the perfect balance between functionality and aesthetics.",
@@ -95,7 +96,23 @@
         "p2_title": "Crypto Analytics Platform",
         "p3_title": "Resource Management App"
     },
-    "Contact": {
+    "work_stages": {
+        "label": "Capabilities",
+        "title_1": "Everything needed for",
+        "title_2": "success",
+        "subtitle": "From deep analysis to the final release, my development process is built on transparency and maximum efficiency.",
+        "button": "Explore",
+        "details": "Details",
+        "stage_1_title": "Analysis & Planning",
+        "stage_1_desc": "Deep analysis of business needs, database architecture design, and creating a solid roadmap.",
+        "stage_2_title": "Design & UX",
+        "stage_2_desc": "Creating premium, modern interfaces with a strong focus on user experience and conversion.",
+        "stage_3_title": "Full-stack Development",
+        "stage_3_desc": "Writing clean and highly performant code using Next.js and NestJS ecosystems.",
+        "stage_4_title": "Testing & Release",
+        "stage_4_desc": "Detailed testing, speed optimization, and seamless deployment to production servers."
+    },
+    "contact": {
         "title_1": "Let's Talk",
         "title_2": "Business?",
         "subtitle": "I am always ready for new challenges and value bold ideas. Write to me, and let's create something extraordinary.",
@@ -109,7 +126,7 @@
         "objective_placeholder": "Select a category",
         "obj_web": "Web Application",
         "obj_mobile": "Mobile App",
-        "obj_desktop": "Desktop App",
+        "obj_desktop": "Desktop Software",
         "obj_bot": "Automation / Bot",
         "obj_other": "Other (Open to offers)",
         "dynamic_web": "What technology is on your mind?",

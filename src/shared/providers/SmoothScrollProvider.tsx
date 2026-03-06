@@ -26,15 +26,19 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
         };
     }, []);
 
-    // Force scroll reset and layout refresh on route changes
-    useEffect(() => {
+    const prevPathname = useRef(pathname);
 
-        if (lenisRef.current?.lenis) {
-            // Instantly jump to top for Lenis
-            lenisRef.current.lenis.scrollTo(0, { immediate: true });
-        } else {
-            // Native scroll reset
-            window.scrollTo(0, 0);
+    // Force scroll reset and layout refresh on real route changes
+    useEffect(() => {
+        if (prevPathname.current !== pathname) {
+            if (lenisRef.current?.lenis) {
+                // Instantly jump to top for Lenis
+                lenisRef.current.lenis.scrollTo(0, { immediate: true });
+            } else {
+                // Native scroll reset
+                window.scrollTo(0, 0);
+            }
+            prevPathname.current = pathname;
         }
 
         // Allow DOM to settle, then refresh ScrollTrigger measurements

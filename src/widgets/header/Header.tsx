@@ -18,8 +18,9 @@ export function Header() {
     const [isAboutHovered, setIsAboutHovered] = useState(false);
     const [isProjectsOpen, setIsProjectsOpen] = useState(false);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const tNav = useTranslations("Navigation");
-    const tProj = useTranslations("Projects");
+    const [isAuthLoading, setIsAuthLoading] = useState(true);
+    const tNav = useTranslations("navigation");
+    const tProj = useTranslations("projects");
     const pathname = usePathname();
     const lenis = useLenis();
 
@@ -27,6 +28,7 @@ export function Header() {
         const checkAuth = () => {
             const token = Cookies.get('token');
             setIsAuthenticated(!!token);
+            setIsAuthLoading(false);
         };
         checkAuth();
         // Setup simple polling or event listener to catch updates across tabs/components if needed.
@@ -63,6 +65,10 @@ export function Header() {
             bg: "bg-orange-500/10",
         }
     ];
+
+    if (pathname.startsWith("/admin")) {
+        return null;
+    }
 
     return (
         <>
@@ -123,6 +129,9 @@ export function Header() {
                                             </Link>
                                             <Link href="/#services" onClick={(e) => handleScroll(e, '#services')} className="text-[11px] font-bold tracking-[0.2em] text-gray-500 hover:text-blue-500 transition-colors uppercase py-2">
                                                 {tNav("services")}
+                                            </Link>
+                                            <Link href="/#process" onClick={(e) => handleScroll(e, '#process')} className="text-[11px] font-bold tracking-[0.2em] text-gray-500 hover:text-blue-500 transition-colors uppercase py-2">
+                                                {tNav("process")}
                                             </Link>
                                         </div>
                                     </motion.div>
@@ -195,7 +204,9 @@ export function Header() {
                     <div className="hidden md:flex items-center gap-4 justify-end relative z-50">
                         <LanguageSwitcher />
                         <ThemeToggler />
-                        {isAuthenticated ? (
+                        {isAuthLoading ? (
+                            <div className="ml-2 w-24 h-10 rounded-full bg-gray-200 dark:bg-white/10 animate-pulse"></div>
+                        ) : isAuthenticated ? (
                             <UserDropdown />
                         ) : (
                             <Link
@@ -209,7 +220,9 @@ export function Header() {
 
                     {/* Mobile Menu Toggle & Theme */}
                     <div className="md:hidden flex items-center gap-4 relative z-50">
-                        {isAuthenticated ? (
+                        {isAuthLoading ? (
+                            <div className="w-16 h-5 rounded bg-gray-200 dark:bg-white/10 animate-pulse"></div>
+                        ) : isAuthenticated ? (
                             <UserDropdown />
                         ) : (
                             <Link href="/auth/login" className="text-sm font-bold uppercase text-gray-900 dark:text-white">
@@ -255,6 +268,7 @@ export function Header() {
                                 { name: tNav("experience"), href: "/#experience", id: "#experience" },
                                 { name: tNav("skills"), href: "/#skills", id: "#skills" },
                                 { name: tNav("services"), href: "/#services", id: "#services" },
+                                { name: tNav("process"), href: "/#process", id: "#process" },
                                 { name: tNav("selected_works"), href: "/projects", id: "#projects" },
                                 { name: tNav("contact"), href: "/#contact", id: "#contact" }
                             ].map((item, i) => (

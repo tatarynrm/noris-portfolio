@@ -8,8 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useTranslations } from "next-intl";
 import { MagneticButton } from "@/shared/ui/MagneticButton";
-import PhoneInput from 'react-phone-input-2';
-import 'react-phone-input-2/lib/style.css';
+import { CustomPhoneInput } from "@/shared/ui/CustomPhoneInput";
 
 // Base schema just for TypeScript casting, the actual validation is inside the component scope
 const baseSchema = z.object({
@@ -24,7 +23,7 @@ const baseSchema = z.object({
 type FormValues = z.infer<typeof baseSchema>;
 
 export function ContactForm() {
-    const t = useTranslations("Contact");
+    const t = useTranslations("contact");
     const [isSubmittingForm, setIsSubmittingForm] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
 
@@ -155,64 +154,6 @@ export function ContactForm() {
     return (
         <>
             <section id="contact" className="py-32 relative z-10 perspective-[2000px] overflow-hidden">
-                <style jsx global>{`
-                    .react-tel-input .form-control {
-                        width: 100% !important;
-                        height: 64px !important;
-                        padding-left: 64px !important;
-                        border-radius: 1rem !important;
-                        background: rgba(255, 255, 255, 0.4) !important;
-                        border: 1px solid rgba(229, 231, 235, 0.6) !important;
-                        color: #111827 !important;
-                        font-family: inherit !important;
-                        font-weight: 700 !important;
-                        transition: all 0.3s ease !important;
-                    }
-                    .dark .react-tel-input .form-control {
-                        background: rgba(0, 0, 0, 0.5) !important;
-                        border: 1px solid rgba(255, 255, 255, 0.1) !important;
-                        color: white !important;
-                    }
-                    .react-tel-input .form-control:focus {
-                        border-color: #3b82f6 !important;
-                        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5) !important;
-                    }
-                    .react-tel-input .flag-dropdown {
-                        background: transparent !important;
-                        border: none !important;
-                        border-radius: 1rem 0 0 1rem !important;
-                        padding-left: 12px !important;
-                    }
-                    .react-tel-input .selected-flag {
-                        background: transparent !important;
-                        width: 52px !important;
-                        padding: 0 0 0 12px !important;
-                    }
-                    .react-tel-input .selected-flag:hover, 
-                    .react-tel-input .selected-flag:focus {
-                        background: transparent !important;
-                    }
-                    .react-tel-input .country-list {
-                        background: rgba(255, 255, 255, 0.9) !important;
-                        backdrop-filter: blur(10px) !important;
-                        border-radius: 1rem !important;
-                        border: 1px solid rgba(229, 231, 235, 0.6) !important;
-                        color: #111827 !important;
-                        margin-top: 8px !important;
-                        box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
-                    }
-                    .dark .react-tel-input .country-list {
-                        background: rgba(10, 10, 10, 0.9) !important;
-                        border: 1px solid rgba(255, 255, 255, 0.1) !important;
-                        color: white !important;
-                    }
-                    .react-tel-input .country-list .country:hover {
-                        background: rgba(59, 130, 246, 0.1) !important;
-                    }
-                    .react-tel-input .country-list .country.highlight {
-                        background: rgba(59, 130, 246, 0.2) !important;
-                    }
-                `}</style>
                 <div className="container mx-auto px-6 max-w-3xl">
                     <div className="text-center mb-16">
                         <h2 className="text-5xl md:text-6xl font-extrabold tracking-tighter text-gray-900 dark:text-white mb-6">
@@ -289,16 +230,12 @@ export function ContactForm() {
                                         name="phone"
                                         control={control}
                                         render={({ field: { onChange, value } }) => (
-                                            <PhoneInput
-                                                country={'ua'}
+                                            <CustomPhoneInput
                                                 value={value}
                                                 onChange={onChange}
                                                 placeholder={t("phone_placeholder")}
-                                                containerClass="react-tel-input"
-                                                inputProps={{
-                                                    required: true,
-                                                    name: 'phone'
-                                                }}
+                                                error={!!errors.phone}
+                                                required={true}
                                             />
                                         )}
                                     />

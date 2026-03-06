@@ -76,7 +76,7 @@ const EYES: EyePairProps[] = [
 /*  Star Wars Crawl                                            */
 /* ─────────────────────────────────────────────────────────── */
 export function StarWarsCrawl() {
-    const t = useTranslations("StarWars");
+    const t = useTranslations("starwars");
     const wrapRef = useRef<HTMLDivElement>(null);
     const stageRef = useRef<HTMLDivElement>(null);
     const crawlRef = useRef<HTMLDivElement>(null);
@@ -191,7 +191,7 @@ export function StarWarsCrawl() {
     ];
 
     return (
-        <section ref={wrapRef} className="relative bg-black overflow-hidden" style={{ height: "180vh" }}>
+        <section ref={wrapRef} className="relative bg-black overflow-hidden" >
 
             {/* ── sticky viewport ── */}
             <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col">

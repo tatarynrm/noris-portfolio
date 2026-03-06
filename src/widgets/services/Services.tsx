@@ -12,7 +12,7 @@ gsap.registerPlugin(ScrollTrigger);
 export function Services() {
     const sectionRef = useRef<HTMLDivElement>(null);
     const gridRef = useRef<HTMLDivElement>(null);
-    const t = useTranslations("Services");
+    const t = useTranslations("services");
 
     useEffect(() => {
         let mm = gsap.matchMedia();

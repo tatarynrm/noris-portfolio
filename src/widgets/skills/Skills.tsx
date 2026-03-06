@@ -12,7 +12,7 @@ import { HoverTilt } from "@/shared/ui/HoverTilt";
 gsap.registerPlugin(ScrollTrigger);
 
 export function Skills() {
-    const t = useTranslations("Skills");
+    const t = useTranslations("skills");
     const headerRef = useRef<HTMLHeadingElement>(null);
 
     useEffect(() => {

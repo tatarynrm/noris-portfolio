@@ -15,7 +15,7 @@ gsap.registerPlugin(ScrollTrigger);
  *  Title fades in from below once the image is large enough. *
  * ─────────────────────────────────────────────────────────── */
 export function ProjectsTeaser() {
-    const t = useTranslations("Projects");
+    const t = useTranslations("projects");
     const wrapRef = useRef<HTMLDivElement>(null);
     const imgWrapRef = useRef<HTMLDivElement>(null);
     const imgInnerRef = useRef<HTMLDivElement>(null);
@@ -35,11 +35,11 @@ export function ProjectsTeaser() {
                 },
             });
 
-            /* Image Wrapper: small → fullscreen */
+            /* Image Wrapper: large → normal */
             tl.fromTo(
                 imgWrapRef.current,
-                { scale: 0.08, borderRadius: "32px" },
-                { scale: 1, borderRadius: "0px", ease: "none" },
+                { scale: 2 },
+                { scale: 1, ease: "none" },
                 0
             );
 
@@ -98,7 +98,7 @@ export function ProjectsTeaser() {
         <section
             ref={wrapRef}
             className="relative bg-black"
-            style={{ height: "200vh" }}
+            style={{ height: "160vh" }}
         >
             {/* ── sticky viewport ── */}
             <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
@@ -108,8 +108,7 @@ export function ProjectsTeaser() {
                     ref={imgWrapRef}
                     className="absolute inset-x-0 inset-y-0 will-change-transform overflow-hidden"
                     style={{
-                        transform: "scale(0.08)",
-                        borderRadius: "32px",
+                        transform: "scale(2)",
                         transformOrigin: "center center",
                     }}
                 >

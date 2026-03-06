@@ -13,7 +13,7 @@ export function UserDropdown() {
     const { data: user } = useUser();
     const logout = useLogout();
     const router = useRouter();
-    const t = useTranslations("Navigation");
+    const t = useTranslations("navigation");
 
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {

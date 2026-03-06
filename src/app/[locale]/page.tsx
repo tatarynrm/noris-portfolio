@@ -4,6 +4,7 @@ import { About } from "@/widgets/about/About";
 import { Experience } from "@/widgets/experience/Experience";
 import { Skills } from "@/widgets/skills/Skills";
 import { Services } from "@/widgets/services/Services";
+import { WorkStages } from "@/widgets/work-stages/WorkStages";
 import { StarWarsCrawl } from "@/widgets/starwars/StarWarsCrawl";
 import { ProjectsTeaser } from "@/widgets/projects/ProjectsTeaser";
 import { StackedProjects } from "@/widgets/projects/StackedProjects";
@@ -27,6 +28,7 @@ export default function Home() {
           <Experience />
           <Skills />
           <Services />
+          <WorkStages />
           <StarWarsCrawl />
           <ProjectsTeaser />
           <StackedProjects />

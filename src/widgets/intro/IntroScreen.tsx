@@ -12,7 +12,7 @@ import { useTranslations } from "next-intl";
  *  When full → section reveals with a cinematic wipe-out.    *
  * ─────────────────────────────────────────────────────────── */
 export function IntroScreen() {
-    const t = useTranslations("Intro");
+    const t = useTranslations("intro");
     const [visible, setVisible] = useState(false);
 
     const overlayRef = useRef<HTMLDivElement>(null);

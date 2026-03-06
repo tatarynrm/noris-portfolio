@@ -102,7 +102,7 @@ function Stat({ value, label, suffix = "" }: { value: number; label: string; suf
  *  MAIN COMPONENT                                             *
  * ─────────────────────────────────────────────────────────── */
 export function About() {
-    const t = useTranslations("About");
+    const t = useTranslations("about");
     const sectionRef = useRef<HTMLDivElement>(null);
     const leftRef = useRef<HTMLDivElement>(null);
     const rightRef = useRef<HTMLDivElement>(null);

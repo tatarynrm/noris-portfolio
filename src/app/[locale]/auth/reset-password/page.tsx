@@ -9,7 +9,7 @@ import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
 
 function ResetPasswordForm() {
-    const t = useTranslations("Auth");
+    const t = useTranslations("auth");
     const searchParams = useSearchParams();
     const token = searchParams.get("token");
     const [password, setPassword] = useState("");

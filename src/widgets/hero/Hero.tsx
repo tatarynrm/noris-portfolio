@@ -22,7 +22,7 @@ const splitWords = (text: string) => {
 
 export function Hero() {
     const containerRef = useRef<HTMLDivElement>(null);
-    const t = useTranslations("Hero");
+    const t = useTranslations("hero");
     const lenis = useLenis();
 
     const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, target: string) => {
