@@ -6,6 +6,7 @@ import ParticleImage from "./ParticleImage";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useTranslations } from "next-intl";
+import { motion } from "framer-motion";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -93,6 +94,100 @@ function Stat({ value, label, suffix = "" }: { value: number; label: string; suf
             </span>
             <span className="mt-2 text-[10px] font-mono tracking-[0.3em] text-gray-500 uppercase">
                 {label}
+            </span>
+        </div>
+    );
+}
+
+/* ─────────────────────────────────────────────────────────── *
+ *  SPOILER CARD                                               *
+ * ─────────────────────────────────────────────────────────── */
+function SpoilerCard({ emoji, text, revealText }: { emoji: string; text: string; revealText: string }) {
+    const [isRevealed, setIsRevealed] = useState(false);
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    // 8x3 grid for scatter blocks to make it look fragmented
+    const cols = 8;
+    const rows = 3;
+    const blocks = Array.from({ length: cols * rows });
+
+    return (
+        <div
+            className="vcard group flex items-center gap-5 px-6 py-5 rounded-2xl bg-gray-50/50 dark:bg-white/[0.025] border border-gray-200 dark:border-white/[0.06] overflow-hidden hover:border-blue-500/30 hover:bg-blue-50 dark:hover:bg-blue-500/[0.05] transition-all duration-500 shadow-sm hover:shadow-md cursor-pointer md:cursor-default relative"
+            onMouseEnter={() => mounted && setIsRevealed(true)}
+            onClick={() => mounted && setIsRevealed(true)}
+        >
+            <span className="text-2xl shrink-0 text-gray-900 dark:text-white relative z-10 group-hover:scale-110 transition-transform duration-300">
+                {emoji}
+            </span>
+
+            <div className="relative flex-1 min-h-[3rem] flex items-center">
+
+                {/* Real text underneath */}
+                <motion.p
+                    initial={false}
+                    animate={{
+                        opacity: isRevealed ? 1 : 0,
+                        filter: isRevealed ? 'blur(0px)' : 'blur(8px)',
+                        scale: isRevealed ? 1 : 0.95
+                    }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
+                    className="text-sm lg:text-base text-gray-600 dark:text-gray-200 font-light leading-snug w-full relative z-0"
+                >
+                    {text}
+                </motion.p>
+
+                {/* Cover that scatters */}
+                <div
+                    className="absolute inset-x-0 inset-y-[-4px] z-10 flex items-center justify-center pointer-events-none"
+                >
+                    {/* The scatter blocks wrapper */}
+                    <div className="absolute inset-0 grid" style={{ gridTemplateColumns: `repeat(${cols}, 1fr)`, gridTemplateRows: `repeat(${rows}, 1fr)`, gap: '2px' }}>
+                        {blocks.map((_, i) => {
+                            // deterministic pseudo-random logic to completely avoid SSR Hydration Mismatch
+                            const pseudoRandom1 = (Math.sin(i * 12.9898) * 43758.5453) % 1;
+                            const pseudoRandom2 = (Math.cos(i * 78.233) * 43758.5453) % 1;
+                            const pseudoRandom3 = (Math.sin(i * 45.123) * 43758.5453) % 1;
+
+                            return (
+                                <motion.div
+                                    key={i}
+                                    initial={false}
+                                    animate={isRevealed ? {
+                                        opacity: 0,
+                                        x: pseudoRandom1 * 200,
+                                        y: pseudoRandom2 * 200,
+                                        scale: 0,
+                                        rotate: pseudoRandom3 * 260
+                                    } : {
+                                        opacity: 1,
+                                        x: 0, y: 0, scale: 1, rotate: 0
+                                    }}
+                                    transition={{ duration: 0.6, ease: "easeOut", delay: Math.abs(pseudoRandom1) * 0.1 }}
+                                    className="bg-gray-300/80 dark:bg-gray-800/90 backdrop-blur-xl rounded-[2px] border border-white/20 dark:border-white/5"
+                                />
+                            );
+                        })}
+                    </div>
+
+                    {/* The "Reveal" button for mobile */}
+                    <motion.button
+                        initial={false}
+                        animate={isRevealed ? { opacity: 0, scale: 0.5 } : { opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.3 }}
+                        className="pointer-events-auto relative z-20 px-4 py-1.5 bg-blue-500/90 backdrop-blur-md text-white border border-blue-400/50 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-lg shadow-lg md:hidden"
+                    >
+                        {revealText}
+                    </motion.button>
+                </div>
+            </div>
+
+            <span className={`ml-auto shrink-0 transition-all duration-300 relative z-10 ${isRevealed ? 'text-blue-500 translate-x-1' : 'text-gray-300 dark:text-white/10 group-hover:text-blue-500'}`}>
+                →
             </span>
         </div>
     );
@@ -434,20 +529,12 @@ export function About() {
                             {/* ── VALUE CARDS ────────────────── */}
                             <div className="vcard-grid grid grid-cols-1 gap-3">
                                 {values.map((v, i) => (
-                                    <div
+                                    <SpoilerCard
                                         key={i}
-                                        className="vcard group flex items-center gap-5 px-6 py-5 rounded-2xl bg-gray-50/50 dark:bg-white/[0.025] border border-gray-200 dark:border-white/[0.06] hover:border-blue-500/30 hover:bg-blue-50 dark:hover:bg-blue-500/[0.05] transition-all duration-500 cursor-default shadow-sm hover:shadow-md"
-                                    >
-                                        <span className="text-2xl shrink-0 group-hover:scale-110 transition-transform duration-300 text-gray-900 dark:text-white">
-                                            {v.emoji}
-                                        </span>
-                                        <p className="text-sm lg:text-base text-gray-600 dark:text-gray-200 font-light leading-snug">
-                                            {t(v.key)}
-                                        </p>
-                                        <span className="ml-auto text-gray-300 dark:text-white/10 group-hover:text-blue-500 transition-all duration-300 shrink-0">
-                                            →
-                                        </span>
-                                    </div>
+                                        emoji={v.emoji}
+                                        text={t(v.key)}
+                                        revealText={t("reveal")}
+                                    />
                                 ))}
                             </div>
 
