@@ -94,8 +94,26 @@
         "teaser_headline_2": "PERFECTION",
         "teaser_sub": "Explore my latest digital incarnations",
         "p1_title": "Logistics Automation System",
+        "p1_desc": "Enterprise platform for real-time fleet tracking and distribution management.",
         "p2_title": "Crypto Analytics Platform",
-        "p3_title": "Resource Management App"
+        "p2_desc": "High-performance dashboard for tracking market trends and portfolio metrics.",
+        "p3_title": "Resource Management App",
+        "p3_desc": "Internal ERP system for handling complex business workflows and inventory.",
+        "show_all": "View All Projects"
+    },
+    "experience": {
+        "title_1": "Work",
+        "title_2": "History",
+        "subtitle": "My professional journey in building scalable digital solutions.",
+        "now": "Present",
+        "item_0_company": "Global Tech Sol",
+        "item_0_role": "Senior Full-stack Developer",
+        "item_0_period": "2021 - Present",
+        "item_0_desc": "Leading the development of high-load enterprise ecosystems.",
+        "item_1_company": "Logic Flow",
+        "item_1_role": "Middleware Architect",
+        "item_1_period": "2019 - 2021",
+        "item_1_desc": "Designed complex API architectures and data transformation pipelines."
     },
     "work_stages": {
         "label": "Capabilities",
